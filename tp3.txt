@@ -1,0 +1,460 @@
+CREATE TABLE recette (
+    Idrecette SERIAL PRIMARY KEY,
+    Nomrecette VARCHAR,
+    tempsminutes INT,
+    niveau VARCHAR
+);
+
+CREATE TABLE ingredient (
+    Idingredient SERIAL PRIMARY KEY,
+    nomingredient VARCHAR
+);
+
+CREATE TABLE composition (
+    id_recette INT,
+    id_ingredient INT,
+    PRIMARY KEY (id_recette, id_ingredient),
+    FOREIGN KEY (id_recette) REFERENCES recette (Idrecette),
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient (Idingredient)
+);
+
+CREATE TABLE chef (
+    idchef SERIAL PRIMARY KEY,
+    nomchef VARCHAR,
+    prenomchef VARCHAR,
+    email VARCHAR
+);
+
+CREATE TABLE proposition (
+    idrecette INT,
+    idchef INT,
+    PRIMARY KEY (idrecette, idchef),
+    FOREIGN KEY (idrecette) REFERENCES recette (Idrecette),
+    FOREIGN KEY (idchef) REFERENCES chef (idchef)
+);
+
+CREATE TABLE utilisation (
+    idutilisateur SERIAL PRIMARY KEY,
+    nomutilisateur VARCHAR,
+    prenomutilisateur VARCHAR,
+    adresse VARCHAR
+);
+
+INSERT INTO recette (Nomrecette, tempsminutes, niveau)
+VALUES 
+  ('Pasta alla Carbonara', 30, 'Facile'),
+  ('Risotto ai Funghi', 45, 'Medio'),
+  ('Pollo al Limone', 40, 'Facile'),
+  ('Lasagne al Forno', 60, 'Medio'),
+  ('Insalata Caprese', 15, 'Facile'),
+  ('Salmone al Forno', 25, 'Facile'),
+  ('Pizza Margherita', 30, 'Facile'),
+  ('Tiramisù', 60, 'Medio'),
+  ('Gnocchi alla Sorrentina', 35, 'Medio'),
+  ('Filetto di Manzo', 40, 'Difficile');
+
+
+
+INSERT INTO ingredient (nomingredient)
+VALUES 
+  ('Pasta'),
+  ('Funghi'),
+  ('Pollo'),
+  ('Salsa di pomodoro'),
+  ('Mozzarella'),
+  ('Salmone'),
+  ('Pomodori'),
+  ('Uova'),
+  ('Farina'),
+  ('Zucchero');
+
+
+-- Inserisci 10 righe di dati di esempio nella tabella "composition"
+INSERT INTO composition (id_recette, id_ingredient)
+VALUES 
+  (1, 1),  -- Pasta alla Carbonara: Pasta
+  (1, 7),  -- Pasta alla Carbonara: Pomodori
+  (2, 2),  -- Risotto ai Funghi: Funghi
+  (2, 7),  -- Risotto ai Funghi: Pomodori
+  (3, 3),  -- Pollo al Limone: Pollo
+  (3, 8),  -- Pollo al Limone: Uova
+  (4, 1),  -- Lasagne al Forno: Pasta
+  (4, 4),  -- Lasagne al Forno: Salsa di pomodoro
+  (4, 5),  -- Lasagne al Forno: Mozzarella
+  (4, 8);  -- Lasagne al Forno: Uova
+
+
+
+INSERT INTO chef (nomchef, prenomchef, email)
+VALUES 
+  ('Smith', 'John', 'john.smith@example.com'),
+  ('Johnson', 'Emily', 'emily.johnson@example.com'),
+  ('Brown', 'Michael', 'michael.brown@example.com'),
+  ('Taylor', 'Jessica', 'jessica.taylor@example.com'),
+  ('Anderson', 'Daniel', 'daniel.anderson@example.com'),
+  ('Clark', 'Laura', 'laura.clark@example.com'),
+  ('Harris', 'Matthew', 'matthew.harris@example.com'),
+  ('Miller', 'Sophia', 'sophia.miller@example.com'),
+  ('Wilson', 'David', 'david.wilson@example.com'),
+  ('Evans', 'Olivia', 'olivia.evans@example.com');
+
+
+
+INSERT INTO chef (nomchef, prenomchef, email)
+VALUES 
+  ('Smith', 'John', 'john.smith@example.com'),
+  ('Johnson', 'Emily', 'emily.johnson@example.com'),
+  ('Brown', 'Michael', 'michael.brown@example.com'),
+  ('Taylor', 'Jessica', 'jessica.taylor@example.com'),
+  ('Anderson', 'Daniel', 'daniel.anderson@example.com'),
+  ('Clark', 'Laura', 'laura.clark@example.com'),
+  ('Harris', 'Matthew', 'matthew.harris@example.com'),
+  ('Miller', 'Sophia', 'sophia.miller@example.com'),
+  ('Wilson', 'David', 'david.wilson@example.com'),
+  ('Evans', 'Olivia', 'olivia.evans@example.com');
+
+
+
+-- Inserisci 10 righe di dati di esempio nella tabella "proposition"
+
+INSERT INTO proposition (idrecette, idchef)
+VALUES 
+  (1, 1),  -- Pasta alla Carbonara proposta da chef 1
+  (2, 2),  -- Risotto ai Funghi proposto da chef 2
+  (3, 3),  -- Pollo al Limone proposto da chef 3
+  (4, 4),  -- Lasagne al Forno proposte da chef 4
+  (1, 5),  -- Pasta alla Carbonara proposta da chef 5
+  (2, 6),  -- Risotto ai Funghi proposto da chef 6
+  (3, 7),  -- Pollo al Limone proposto da chef 7
+  (4, 8),  -- Lasagne al Forno proposte da chef 8
+  (1, 9),  -- Pasta alla Carbonara proposta da chef 9
+  (2, 10); -- Risotto ai Funghi proposto da chef 10
+
+
+-- Inserisci 10 righe di dati di esempio nella tabella "utilisation"
+
+INSERT INTO utilisation (nomutilisateur, prenomutilisateur, adresse)
+VALUES 
+  ('Smith', 'John', '1234 Elm St, Springfield'),
+  ('Johnson', 'Emily', '5678 Oak Ave, Springfield'),
+  ('Brown', 'Michael', '7890 Cedar Ln, Springfield'),
+  ('Taylor', 'Jessica', '4567 Maple Dr, Springfield'),
+  ('Anderson', 'Daniel', '8901 Pine Rd, Springfield'),
+  ('Clark', 'Laura', '2345 Birch Blvd, Springfield'),
+  ('Harris', 'Matthew', '6789 Willow St, Springfield'),
+  ('Miller', 'Sophia', '7890 Spruce Ave, Springfield'),
+  ('Wilson', 'David', '3456 Ash Dr, Springfield'),
+  ('Evans', 'Olivia', '9012 Sycamore Ln, Springfield');
+
+ALTER TABLE utilisation RENAME TO utilisateur;
+
+-- Creazione della tabella "utilisation" con chiavi primarie come foreign key
+
+CREATE TABLE utilisation (
+    idrecette INT,
+    idutilisateur INT,
+    PRIMARY KEY (idrecette, idutilisateur),
+    FOREIGN KEY (idrecette) REFERENCES recette (Idrecette),
+    FOREIGN KEY (idutilisateur) REFERENCES utilisateur (idutilisateur)
+);
+
+-- Popolamento della tabella "utilisation" con 10 righe di dati di esempio
+
+INSERT INTO utilisation (idrecette, idutilisateur)
+VALUES 
+  (1, 1),  -- Utilisation 1
+  (2, 2),  -- Utilisation 2
+  (3, 3),  -- Utilisation 3
+  (4, 4),  -- Utilisation 4
+  (1, 5),  -- Utilisation 5
+  (2, 6),  -- Utilisation 6
+  (3, 7),  -- Utilisation 7
+  (4, 8),  -- Utilisation 8
+  (1, 9),  -- Utilisation 9
+  (2, 10); -- Utilisation 10
+
+3. Ajouter les colonnes quantité et unité à « Composition ».
+
+	ALTER TABLE COMPOSITION ADD QUANTITE INTEGER;
+	
+4. Ajouter la colonne date à « Utilisation »
+	
+	ALTER TABLE UTILISATION ADD DATEUTILISATION DATE;
+
+6. Sélectionner les recettes qui n’ont pas été utilisé par un utilisateur. (NOT IN)
+
+	SELECT RE.*
+	FROM RECETTE RE
+	WHERE RE.IDRECETTE NOT IN (SELECT RE.IDRECETTE 
+				   FROM RECETTE RE,UTILISATION U
+				   WHERE RE.IDRECETTE=U.IDRECETTE);
+
+7. Renommer votre table « Utilisation » à « Consultation ».
+
+	ALTER TABLE UTILISATION RENAME TO CONSULTATION;
+	
+8. Ajouter une contrainte à la table recette pour vérifier que le niveau de difficulté soit une des 
+valeurs suivantes : Très facile, facile, moyen, confirmé, expert.
+	-- Aggiungi una constraint CHECK sulla colonna "niveau" nella tabella "recette"
+
+	ALTER TABLE recette
+	ADD CONSTRAINT check_niveau
+	CHECK (niveau IN ('Tres facile', 'facile', 'Moyen', 'Confirmé', 'Expert'));
+
+9. Ajouter la colonne datecreation à la table Recette.
+
+	ALTER TABLE RECETTE ADD DATECREATION DATE;
+
+10. Combien de chefs ont le Nom « Dupont ».
+
+	SELECT NOMCHEF
+	FROM CHEF
+	WHERE NOMCHEF='SMITH'
+
+11. Sélectionner les chefs qui ont un nom Dupont par ordre décroissant de leur prénom.
+
+	SELECT NOMCHEF,PRENOMCHEF
+	FROM CHEF
+	WHERE NOMCHEF='SMITH'
+	ORDER BY PRENOMCHEF DESC
+
+12. Sélectionner les recettes qui ont un temps de préparation plus grand que la liste des moyennes 
+de temps des recettes groupés par niveau. (ALL)
+
+	SELECT *
+	FROM RECETTE 
+	WHERE TEMPSMINUTES >ALL(
+				SELECT AVG(TEMPSMINUTES)
+				FROM RECETTE
+				GROUP BY NIVEAU
+				);
+
+13. Sélectionner les recettes qui ont un temps de préparation supérieur à la durée maximale des recettes consultés. (ANY)
+
+	SELECT *
+	FROM RECETTE 
+	WHERE TEMPSMINUTES >ANY(
+				SELECT (TEMPSMINUTES)
+				FROM RECETTE
+				);
+
+14. Sélectionner les 3 ingrédients les plus utilisés dans les recettes, par ordre alphabétique. (LIMIT)
+
+	SELECT ingredient.nomingredient, COUNT(*) AS nombre_utilisations
+	FROM composition ,ingredient
+	WHERE composition.id_ingredient = ingredient.Idingredient
+	GROUP BY nomingredient
+	ORDER BY nombre_utilisations DESC, nomingredient ASC
+	LIMIT 3;
+
+15. Sélectionner uniquement le troisième ingrédient les plus utilisés dans les recettes, par ordre 
+alphabétique. (OFFSET et LIMIT)
+
+	SELECT ingredient.nomingredient
+	FROM composition ,ingredient
+	WHERE composition.id_ingredient = ingredient.Idingredient
+	GROUP BY nomingredient
+	ORDER BY count(*) DESC, nomingredient ASC
+	LIMIT 1
+	OFFSET 2;
+
+16. Répéter la requête 14 en utilisant la commande Fetch FIRST pour sélectionner les 3 premiers 
+puis modifier la requête pour sélectionner seulement le premier résultat
+
+	SELECT ingredient.nomingredient,count(*) as conteggio
+	FROM composition ,ingredient
+	WHERE composition.id_ingredient = ingredient.Idingredient
+	GROUP BY nomingredient
+	ORDER BY count(*) DESC, nomingredient ASC
+	FETCH FIRST ROW ONLY
+
+17. Sélectionner uniquement le deuxième et le troisième ingrédient les plus utilisés dans les 
+recettes, par ordre alphabétique, en utilisant OFFSET et FETCH NEXT
+
+	SELECT ingredient.nomingredient,count(*) as conteggio
+	FROM composition ,ingredient
+	WHERE composition.id_ingredient = ingredient.Idingredient
+	GROUP BY nomingredient
+	ORDER BY count(*) DESC, nomingredient ASC
+	OFFSET 1
+	FETCH FIRST 2 ROW ONLY
+
+18.
+
+
+19. 	. Sélectionner les noms de recettes avec les noms des utilisateurs qu’ils ont été consultés. (left join)
+
+	SELECT RE.IDRECETTE,RE.NOMRECETTE,CO.IDUTILISATEUR
+	FROM RECETTE RE LEFT JOIN CONSULTATION CO
+	ON RE.IDRECETTE=CO.IDRECETTE
+	WHERE CO.IDUTILISATEUR IS NOT NULL
+
+20. Sélectionner les noms de recettes qui n’ont pas encore été consultés (left join sans intersection)
+	
+	SELECT RE.IDRECETTE,RE.NOMRECETTE,CO.IDUTILISATEUR
+	FROM RECETTE RE LEFT JOIN CONSULTATION CO
+	ON RE.IDRECETTE=CO.IDRECETTE
+	WHERE CO.IDUTILISATEUR IS NULL
+
+21. Sélectionner les noms des utilisateurs avec les noms de recettes qui l’ont consulté s’ils existent
+	
+	SELECT RE.IDRECETTE,RE.NOMRECETTE,CO.IDUTILISATEUR,CHEF.NOMCHEF
+	FROM RECETTE RE,CONSULTATION CO,CHEF
+	WHERE RE.IDRECETTE=CO.IDRECETTE AND CO.IDUTILISATEUR=CHEF.IDCHEF
+
+22. Sélectionner tous les noms de recettes et des utilisateurs que ce soit consultés ou non.
+
+	SELECT RE.IDRECETTE,RE.NOMRECETTE,CO.IDUTILISATEUR,CHEF.NOMCHEF
+	FROM RECETTE RE 
+	LEFT JOIN CONSULTATION CO ON RE.IDRECETTE=CO.IDRECETTE
+	LEFT JOIN CHEF ON CHEF.IDCHEF=CO.IDUTILISATEUR
+
+23. Sélectionner tous les noms de recettes qui n’ont pas été consultés ainsi que les noms des 
+utilisateurs qui n’ont pas réalisés des consultations encore.
+
+	SELECT RE.IDRECETTE,RE.NOMRECETTE,CO.IDUTILISATEUR
+	FROM RECETTE RE 
+	LEFT JOIN CONSULTATION CO ON RE.IDRECETTE=CO.IDRECETTE
+	WHERE CO.IDUTILISATEUR IS NULL
+
+24. Ajouter une colonne prix à la table ingrédient
+	
+	ALTER TABLE INGREDIENT ADD COLUMN PRIX INT
+
+25. Créer une vue permettant d’afficher pour chaque recette son nom, le temps nécessaire de préparation et le coût
+
+	CREATE OR REPLACE VIEW VIEW1 AS
+	SELECT RE.NOMRECETTE,RE.TEMPSMINUTES,SUM(ING.PRIX)
+	FROM INGREDIENT ING,RECETTE RE, COMPOSITION CO
+	WHERE ING.IDINGREDIENT=CO.ID_INGREDIENT	AND RE.IDRECETTE=CO.ID_RECETTE
+	GROUP BY (RE.IDRECETTE,RE.NOMRECETTE,RE.TEMPSMINUTES);
+
+26. Créer une vue permettant d’afficher pour chaque chef les recettes qu’il a proposé.
+	
+	CREATE OR REPLACE VIEW VIEW2 AS
+	SELECT RE.NOMRECETTE,CHEF.NOMCHEF
+	FROM RECETTE RE,PROPOSITION PRO,CHEF 
+	WHERE RE.IDRECETTE=PRO.IDRECETTE AND CHEF.IDCHEF=PRO.IDCHEF
+	GROUP BY CHEF.NOMCHEF,RE.NOMRECETTE;
+
+27. Sélectionner à partir de la vue créée en question 25 les recettes ayant un cout inférieur ou égal 
+à la moyenne des coûts.
+	
+	SELECT SOMMA
+	FROM VIEW1
+	WHERE SOMMA<=(SELECT AVG(SOMMA) AS MEDIA
+		      FROM VIEW1);
+
+
+***********************		EXERCISE2	************************************
+
+1. Créer un groupe d’utilisateur « TP3groupe ». Syntaxe : CREATE GROUP nom ;
+	
+	CREATE GROUP team
+
+2. Créer 2 utilisateurs user1 et user2 avec des mots de passe de votre choix.
+
+	CREATE USER ALFA IN GROUP TEAM ENCRYPTED PASSWORD 'helloworld'
+	CREATE USER BRAVO  IN GROUP TEAM ENCRYPTED PASSWORD 'helloworld'
+
+3. Ajouter les 2 utilisateurs créés au groupe TP3groupe. 
+	
+	 ALTER GROUP team ADD USER alfa, bravo;
+
+4. Donner les droits de connexion à la base de données RecetteCuisine au groupe TP3groupe.
+
+	GRANT CONNECT ON DATABASE tp3 TO team;
+
+5. Donner le droit d’utilisation du schéma public au groupe TP3groupe.
+
+	GRANT USAGE ON SCHEMA PUBLIC TO team;
+
+6. Attribuer le droit de sélection sur les tables chef et composition à l’utilisateur1.
+	
+	GRANT SELECT ON CHEF,COMPOSITION TO ALFA
+
+7. Attribuer le droit de sélection sur toutes les tables du schéma public à l’utilisateur2.
+
+	GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC TO BRAVO
+
+8. A lot of questions.But easy 
+
+9. Créer un nouveau Schéma « RecetteDessert » dans votre BDD.
+
+	CREATE SCHEMA IF NOT EXISTS RECETTEDESSERT 
+
+10. Créer une table Dessert avec les champs id et nom. Attention : il faut spécifier le nouveau 
+schema « RecetteDessert » lors de la création de la table. Dans le cas contraire, la table sera 
+créée dans le schéma public.
+	
+	CREATE TABLE IF NOT EXISTS RECETTEDESSERT.DESSERT (
+	IDDESSERT SERIAL,
+	NOMDESSERT VARCHAR);
+
+	GRANT USAGE ON SCHEMA RECETTEDESSERT TO	TEAM
+
+11. Connecter avec l’utilisateur1, puis tester la requête suivante :
+select * from "RecetteDessert".dessert;
+Que constatez-vous ?
+Donner le droit d’utilisation de ce schéma au groupe TP3groupe.
+Essayer à nouveau la requête ci-dessus. Que constatez-vous ?
+
+	GRANT USAGE ON SCHEMA RECETTEDESSERT TO	TEAM
+
+
+12. Donner les droits de sélection, d’insertion, de modification et de suppression sur toutes les 
+tables du schéma « RecetteDessert » à l’utilisateur2.
+• Tester d’insérer une ligne à la table dessert avec la connexion de l’utilisateur2. Changer 
+la connexion à l’utilisateur1 et tester l’insertion à nouveau. Que constatez-vous ?
+
+	GRANT SELECT,INSERT,UPDATE,DELETE ON ALL TABLES IN SCHEMA RECETTEDESSERT TO BRAVO
+
+13. Donner le droit de création de base de données à l’utilisateur1.
+
+	GRANT CREATE ON DATABASE TP3 TO alfa
+
+14. Donner les droits de superutilisateur à l’utilisateur2.
+
+	ALTER USER BRAVO WITH SUPERUSER
+
+15. Retirer les droits de création d’une base de données à l’utilisateur1
+
+	REVOKE CREATE ON DATABASE TP3 FROM ALFA
+
+16. Retirer les droits de superutilisateur de l’utilisateur2.
+
+	ALTER USER BRAVO WITH NOSUPERUSER
+
+17. Retirer les droits de sélection, d’insertion, de modification et de suppression sur toutes les 
+tables du schéma « RecetteDessert » à l’utilisateur2
+
+	REVOKE SELECT,INSERT,UPDATE ON ALL TABLES IN SCHEMA RECETTEDESSERT FROM BRAVO
+
+18. Retirer le droit d’utilisation du schéma « RecetteDessert" du TP3groupe.
+
+	REVOKE USAGE ON SCHEMA RECETTEDESSERT FROM  TEAM
+
+
+19. Vous pouvez créer des rôles différents avec certains privilèges et les attribuer à des utilisateurs 
+ou des groupes. 
+• Créer un rôle « role1 ».
+• Donner le droit de connexion à la base de données de recettes de cuisine au role1.
+• Donner le droit d’utilisation et de création sur le schéma RecetteDessert au role1.
+• Donner le droit de sélection sur toutes les tables du schéma RecetteDessert au role1.
+
+	CREATE ROLE ROLE1;
+
+	GRANT CONNECT ON DATABASE TP3 TO ROLE1
+
+	GRANT USAGE ON SCHEMA RECETTEDESSERT TO ROLE1
+
+	GRANT SELECT ON ALL TABLES IN SCHEMA RECETTEDESSERT TO ROLE1
+
+20. Créer un utilisateur 3.
+	
+	CREATE USER CHARLIE
+
+21. Attribuer le role1 à l’utilisateur3.
+
+	ALTER GROUP TEAM ADD USER CHARLIE
+
