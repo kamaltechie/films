@@ -23,7 +23,7 @@
 
 <?php
 
-require_once 'C:\Users\hunte\PhpstormProjects\films\DB\config.php';
+require_once '../../db/config.php';
 
 class UserRegistration {
     private $connection;
