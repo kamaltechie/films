@@ -1,46 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>FilmMarket register</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style2.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-</head>
-<body>
-    <h2>FilmMarket</h2> 
-    <form action="register.php" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    <br>
-    <input type="submit" value="Register">
-</form> 
-</body>
-</html>
-
 <?php
-
 require_once '../../db/config.php';
 
 class UserRegistration {
     private $connection;
 
     public function __construct() {
-        $this->connection = getConnection();
+        $database = new Database();
+        $this->connection = $database->getConnection();
     }
 
     public function register($username, $password) {
+        echo '1';
         $registrationError = '';
 
         if (empty($username) || empty($password)) {
             $registrationError = 'Les deux champs sont obligatoires!';
-        }
-
-        if (!$registrationError) {
-            // You should hash the password securely before saving it to the database
+        } else {
+            // Additional validation and security checks can be added here
+            echo '2';
+            // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
             $stmt = $this->connection->prepare('INSERT INTO admin (username, password) VALUES (?, ?)');
@@ -48,8 +26,8 @@ class UserRegistration {
             $stmt->bindParam(2, $hashedPassword);
 
             if ($stmt->execute()) {
-                header("Location: login.php");
-                exit;
+                echo '3';
+                header("Location: /films/admin/authentication/login.php");
             } else {
                 $registrationError = 'Registration failed.';
             }
@@ -68,3 +46,30 @@ if (isset($_POST['submit-btn'])) {
 
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FilmMarket register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style 2.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+</head>
+<body>
+<h2>FilmMarket</h2>
+
+<?php if (!empty($registrationError)) : ?>
+    <div class="error-message"><?php echo $registrationError; ?></div>
+<?php endif; ?>
+
+<form action="register.php" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+    <br>
+    <input type="submit" name="submit-btn" value="Register">
+</form>
+</body>
+</html>
