@@ -4,7 +4,8 @@ session_start();
 require_once '../../app/includes/logic/helpers.php';
 include_once "../../app/config/db.php";
 
-$connection = getConnection();
+$database = new database();
+$this->connection = $database->getConnection();
 
 
 
@@ -60,7 +61,7 @@ include "./sidebar.php";
                     <h1 style="color:white;">
                         <?php
                         $sql = "SELECT count(*) as total from users";
-                        $stmt = $connection->prepare($sql);
+                        $stmt = $this->connection->prepare($sql);
                         if($stmt){
                             $stmt->execute();
                             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -80,7 +81,7 @@ include "./sidebar.php";
                     <h1 style="color:white;">
                         <?php
                         $sql = "SELECT count(*) as total from documents";
-                        $stmt = $connection->prepare($sql);
+                        $stmt = $this->connection->prepare($sql);
                         if($stmt){
                             $stmt->execute();
                             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -102,7 +103,7 @@ include "./sidebar.php";
                     <h1 style="color:white;">
                         <?php
                         $sql = "SELECT count(*) as total from users";
-                        $stmt = $connection->prepare($sql);
+                        $stmt = $this->connection->prepare($sql);
                         if($stmt){
                             $stmt->execute();
                             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -122,7 +123,7 @@ include "./sidebar.php";
                     <h1 style="color:white;">
                         <?php
                         $sql = "SELECT count(*) as total from borrows";
-                        $stmt = $connection->prepare($sql);
+                        $stmt = $this->connection->prepare($sql);
                         if($stmt){
                             $stmt->execute();
                             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -146,6 +147,7 @@ if (isset($_GET['type']) && $_GET['type'] == "success") {
     echo '<script> alert("erreur lors de lajout")</script>';
 }
 ?>
+
 
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
