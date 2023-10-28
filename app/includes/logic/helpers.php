@@ -5,14 +5,15 @@
 //require dirname(__DIR__) . '/../../vendor/autoload.php';
 use JetBrains\PhpStorm\NoReturn;
 
-require_once dirname(__DIR__) . '../../../db/config.php';
+require_once dirname(__DIR__) . '/../../db/config.php';
 
 
-$connection = getConnection();
 
 // Redirect to another page
 
 function redirect($page, $params){
+    $database = new database();
+    $connection = $database->getConnection();
     
 	if(count($params) > 0)
 	{

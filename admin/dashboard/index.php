@@ -1,11 +1,8 @@
 <?php
 session_start();
 
-require_once '../../app/includes/logic/helpers.php';
-include_once "../../app/config/db.php";
+include_once "../../db/config.php";
 
-$database = new database();
-$this->connection = $database->getConnection();
 
 
 
@@ -16,7 +13,7 @@ if(isset($_POST['logout_btn']))
     session_unset();
     session_destroy();
 
-    redirect('../authentication/login', []);
+    header('Location : ../authentication/login.php');
 }
 
 ?>
@@ -39,9 +36,9 @@ if(isset($_POST['logout_btn']))
 
 <?php
 
-if(!isset($_SESSION['user_id']))
+if(!isset($_SESSION['id_admin']))
 {
-    redirect('../login', []);
+    header('../../authentication/login.php');
 }
 
 include "./adminHeader.php";
@@ -141,11 +138,13 @@ include "./sidebar.php";
 
 
 <?php
+/*
 if (isset($_GET['type']) && $_GET['type'] == "success") {
     echo '<script> alert("type est ajouté")</script>';
 }else if (isset($_GET['type']) && $_GET['type'] == "error") {
     echo '<script> alert("erreur lors de lajout")</script>';
 }
+*/
 ?>
 
 
