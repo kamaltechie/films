@@ -28,9 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `ID_ADMIN` int(2) NOT NULL,
+  `ID_ADMIN` int(2) NOT NULL AUTO_INCREMENT,
   `USERNAME` varchar(20) DEFAULT NULL,
-  `PASSWORD` char(64) DEFAULT NULL
+  `PASSWORD` char(64) DEFAULT NULL,
+  PRIMARY KEY (ID_ADMIN)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -51,13 +52,14 @@ CREATE TABLE `appartient` (
 --
 
 CREATE TABLE `client` (
-  `ID_CLIENT` int(2) NOT NULL,
+  `ID_CLIENT` int(2) NOT NULL AUTO_INCREMENT,
   `ID_ADMIN` int(2) DEFAULT NULL,
   `NOM` varchar(20) DEFAULT NULL,
   `PRENOM` varchar(20) DEFAULT NULL,
   `EMAIL` varchar(40) DEFAULT NULL,
   `ADRESSE` varchar(80) DEFAULT NULL,
-  `PASSWORD` char(64) DEFAULT NULL
+  `PASSWORD` char(64) DEFAULT NULL,
+  PRIMARY KEY (ID_CLIENT)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -67,11 +69,12 @@ CREATE TABLE `client` (
 --
 
 CREATE TABLE `collection` (
-  `ID_COLLECTION` int(2) NOT NULL,
+  `ID_COLLECTION` int(2) NOT NULL AUTO_INCREMENT,
   `ID_ADMIN` int(2) NOT NULL,
   `NAME` varchar(20) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
-  `DATE_CREATION` datetime DEFAULT NULL
+  `DATE_CREATION` datetime DEFAULT NULL,
+  PRIMARY KEY (ID_COLLECTION)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -81,11 +84,12 @@ CREATE TABLE `collection` (
 --
 
 CREATE TABLE `commande` (
-  `NUM_COM` int(2) NOT NULL,
+  `NUM_COM` int(2) NOT NULL AUTO_INCREMENT,
   `ID_CLIENT` int(2) NOT NULL,
   `DATE_COM` date DEFAULT NULL,
   `STATUT_COM` varchar(15) DEFAULT NULL,
-  `TOTAL` decimal(10,2) DEFAULT NULL
+  `TOTAL` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (NUM_COM)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -107,12 +111,13 @@ CREATE TABLE `commande_item` (
 --
 
 CREATE TABLE `film` (
-  `ID_FILM` int(2) NOT NULL,
+  `ID_FILM` int(2) NOT NULL AUTO_INCREMENT,
   `TITRE` varchar(40) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `PRIX` decimal(6,2) DEFAULT NULL,
   `CATEGORY` varchar(15) DEFAULT NULL,
-  `STATUT` tinyint(1) DEFAULT NULL
+  `STATUT` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (ID_FILM)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -122,8 +127,7 @@ CREATE TABLE `film` (
 --
 -- Indici per le tabelle `admin`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`ID_ADMIN`);
+
 
 --
 -- Indici per le tabelle `appartient`
@@ -137,21 +141,18 @@ ALTER TABLE `appartient`
 -- Indici per le tabelle `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`ID_CLIENT`),
   ADD KEY `I_FK_CLIENT_ADMIN` (`ID_ADMIN`);
 
 --
 -- Indici per le tabelle `collection`
 --
 ALTER TABLE `collection`
-  ADD PRIMARY KEY (`ID_COLLECTION`),
   ADD KEY `I_FK_COLLECTION_ADMIN` (`ID_ADMIN`);
 
 --
 -- Indici per le tabelle `commande`
 --
 ALTER TABLE `commande`
-  ADD PRIMARY KEY (`NUM_COM`),
   ADD KEY `I_FK_COMMANDE_CLIENT` (`ID_CLIENT`);
 
 --
@@ -165,8 +166,6 @@ ALTER TABLE `commande_item`
 --
 -- Indici per le tabelle `film`
 --
-ALTER TABLE `film`
-  ADD PRIMARY KEY (`ID_FILM`);
 
 --
 -- Limiti per le tabelle scaricate

@@ -6,6 +6,14 @@ class Database {
     private $password = '';
     private $conn;
 
+    function SecurizeString_ForSQL($string) {
+        $string = trim($string);
+        $string = stripcslashes($string);
+        $string = addslashes($string);
+        $string = htmlspecialchars($string);
+        return $string;
+    }
+
     public function getConnection() {
         try {
             $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->username, $this->password);

@@ -8,14 +8,13 @@
             max-width: 300px;
             margin: 0 auto;
             padding: 40px;
-            background: transparent;
+            background:rgba(255, 255, 255, 0.8);
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.5s ease;
         }
-
         h1{
-           font-family: "Audiowide", sans-serif;
+            font-family: "Audiowide", sans-serif;
         }
 
         label {
@@ -23,22 +22,23 @@
         }
 
         input[type="text"],
-        input[type="password"] {
+        input[type="password"] { 
             width: 92.5%;
             padding: 10px;
             margin: 0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+            border: 1px solid #fff;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px; 
         }
 
-        input[type="submit"] {
+        input[type="submit"] { 
             width: 100%;
             padding: 10px;
             background-color: #007BFF;
             color: #fff;
             border: none;
             border-radius: 3px;
-            cursor: pointer;
+            cursor: pointer; 
 
         }
 
@@ -50,10 +50,10 @@
             text-align: center;
             margin-top: 10px;
         }
-
+        
         #login{
             margin-top: 15px;
-
+            
         }
 
         @keyframes fadeIn {
