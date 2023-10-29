@@ -10,14 +10,13 @@ class UserRegistration {
     }
 
     public function register($username, $password) {
-        echo '1';
         $registrationError = '';
 
         if (empty($username) || empty($password)) {
             $registrationError = 'Les deux champs sont obligatoires!';
         } else {
             // Additional validation and security checks can be added here
-            echo '2';
+
             // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
@@ -26,7 +25,6 @@ class UserRegistration {
             $stmt->bindParam(2, $hashedPassword);
 
             if ($stmt->execute()) {
-                echo '3';
                 header("Location: /films/admin/authentication/login.php");
             } else {
                 $registrationError = 'Registration failed.';
@@ -52,7 +50,7 @@ if (isset($_POST['submit-btn'])) {
     <title>FilmMarket register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/style 2.css">
+    <link rel="stylesheet" href="../assets/css/style2.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
 </head>
 <body>
