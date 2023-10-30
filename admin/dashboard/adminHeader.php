@@ -1,6 +1,6 @@
 <nav  class="main-navbar navbar sticky-top navbar-expand-lg navbar-light px-5" style="background-color: #3B3131;">
 
-    <button class="toggle-sidebar-btn" data-is-sidebar-open="false"><i class="fa fa-bars"></i></button>
+    <button class="toggle-sidebar-btn" data-is-sidebar-open="true"><i class="fa fa-bars"></i></button>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0"></ul>
     <div class="user-cart">
         <form action="" method="post">
