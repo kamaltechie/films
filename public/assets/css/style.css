@@ -1,0 +1,143 @@
+/* Reset some default styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Define a common font style */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar styles */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo img {
+    width: 80px;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* User Info styles */
+.user-info button {
+    margin: 0 10px;
+    padding: 5px 15px;
+    background: #444;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Search and Picture section styles */
+.search-section {
+    background: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 70%;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.picture img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+/* Films section styles */
+.films-section {
+    padding: 20px;
+}
+
+.film-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* Pagination styles */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    background: #444;
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+/* Contact Us form styles */
+.contact-section {
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.contact-section h2 {
+    margin-bottom: 20px;
+}
+
+.contact-section form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.contact-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contact-section input,
+.contact-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.contact-section button {
+    padding: 10px 20px;
+    background: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
