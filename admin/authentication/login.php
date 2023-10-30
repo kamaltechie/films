@@ -47,7 +47,7 @@
     }
 
     if (isset($_POST['submit-btn'])) {
-        $userAuth = new UserAuthentication();
+        $userAuth = new authentication();
         $loginError = $userAuth->login($_POST['username'], $_POST['password']);
     }
 
