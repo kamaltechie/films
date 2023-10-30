@@ -9,10 +9,10 @@ class UserRegistration {
         $this->connection = $database->getConnection();
     }
 
-    public function register($username, $password, $email, $nom, $prenom, $adresse) {
+    public function register($nom, $prenom, $email, $adresse, $password) {
         $registrationError = '';
 
-        if (empty($username) || empty($password) || empty($email) || empty($nom) || empty($prenom) || empty($adresse)) {
+        if (empty($nom) || empty($prenom) || empty($email) || empty($adresse) || empty($password)) {
             $registrationError = 'All fields are required!';
         } else {
             // Additional validation and security checks can be added here
@@ -20,16 +20,15 @@ class UserRegistration {
             // Hash the password
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            $stmt = $this->connection->prepare('INSERT INTO users (username, password, email, nom, prenom, adresse) VALUES (?, ?, ?, ?, ?, ?)');
-            $stmt->bindParam(1, $username);
-            $stmt->bindParam(2, $hashedPassword);
+            $stmt = $this->connection->prepare('INSERT INTO client (nom, prenom, email, adresse, password) VALUES (?, ?, ?, ?, ?)');
+            $stmt->bindParam(1, $nom);
+            $stmt->bindParam(2, $prenom);
             $stmt->bindParam(3, $email);
-            $stmt->bindParam(4, $nom);
-            $stmt->bindParam(5, $prenom);
-            $stmt->bindParam(6, $adresse);
+            $stmt->bindParam(4, $adresse);
+            $stmt->bindParam(5, $hashedPassword);
 
             if ($stmt->execute()) {
-                header("Location: /films/user/authentication/login.php");
+                header("Location: login.php");
             } else {
                 $registrationError = 'Registration failed.';
             }
@@ -43,7 +42,7 @@ $registrationError = '';
 
 if (isset($_POST['submit-btn'])) {
     $userRegistration = new UserRegistration();
-    $registrationError = $userRegistration->register($_POST['username'], $_POST['password'], $_POST['email'], $_POST['nom'], $_POST['prenom'], $_POST['adresse']);
+    $registrationError = $userRegistration->register($_POST['nom'], $_POST['prenom'], $_POST['email'], $_POST['adresse'], $_POST['password']);
 }
 
 ?>
@@ -65,23 +64,20 @@ if (isset($_POST['submit-btn'])) {
 <?php endif; ?>
 
 <form action="register.php" method="POST">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    <br>
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required>
-    <br>
     <label for="nom">Nom:</label>
     <input type="text" name="nom" id="nom" required>
     <br>
     <label for="prenom">Prenom:</label>
     <input type="text" name="prenom" id="prenom" required>
     <br>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
+    <br>
     <label for="adresse">Adresse:</label>
     <input type="text" name="adresse" id="adresse" required>
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
     <br>
     <input type="submit" name="submit-btn" value="Register">
 </form>

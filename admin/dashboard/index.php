@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$database = new Database();
+
 include_once "../../db/config.php";
 
 

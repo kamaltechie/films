@@ -9,16 +9,16 @@ class UserAuthentication {
         $this->connection = $database->getConnection();
     }
 
-    public function login($username, $password) {
+    public function login($email, $password) {
         $loginError = '';
 
-        if (empty($username) || empty($password)) {
-            $loginError = 'Both fields are required!';
+        if (empty($email) || empty($password)) {
+            $loginError = 'Both email and password are required.';
         }
 
         if (!$loginError) {
-            $stmt = $this->connection->prepare('SELECT id_client, password FROM users WHERE username = ?');
-            $stmt->bindParam(1, $username);
+            $stmt = $this->connection->prepare('SELECT id_client, password FROM client WHERE email = ?');
+            $stmt->bindParam(1, $email);
 
             if ($stmt->execute()) {
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -26,14 +26,13 @@ class UserAuthentication {
                 if (count($result) > 0 && password_verify($password, $result[0]['password'])) {
                     session_start();
                     session_regenerate_id();
-                    $_SESSION['loggedin'] = TRUE;
-                    $_SESSION['name'] = $username;
-                    $_SESSION['user_id'] = $result[0]['id_client'];
-                    header("Location: /films/user/dashboard/index.php");
+                    $_SESSION['loggedin'] = true;
+                    $_SESSION['user_id'] = $result[0]['id_user'];
+                    header("Location: ../index.php");
                     exit;
                 }
 
-                $loginError = 'Invalid login!';
+                $loginError = 'Invalid login credentials.';
             }
         }
 
@@ -44,8 +43,8 @@ class UserAuthentication {
 $loginError = '';
 
 if (isset($_POST['submit-btn'])) {
-    $userAuth = new authentication();
-    $loginError = $userAuth->login($_POST['username'], $_POST['password']);
+    $userAuth = new UserAuthentication();
+    $loginError = $userAuth->login($_POST['email'], $_POST['password']);
 }
 
 ?>
@@ -59,19 +58,17 @@ if (isset($_POST['submit-btn'])) {
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-<form action="login.php" method="POST">
+<form action="#" method="POST">
     <h1 for="FilmMarket">FilmMarket</h1>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
     <br>
     <label for="password">Password:</label>
     <input type="password" name="password" id="password" required>
     <br>
     <input type="submit" value="Login" name="submit-btn" id="login">
-    <a href="forgotPassword.php">forgot password?</a>
+    <a href="forgotPassword.php">Forgot password?</a>
 </form>
-
-
 </body>
 </html>
