@@ -1,26 +1,15 @@
 <?php
 session_start();
 
-
 include_once "../../db/config.php";
-
-
-
-
 // Logout
-
 if(isset($_POST['logout_btn']))
 {
     session_unset();
     session_destroy();
-
-    header('Location: ../../authentication/login.php');
-
+    header('Location: ../authentication/login.php');
 }
-
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -139,24 +128,6 @@ include "./sidebar.php";
 </div>
 
 
-<?php
-/*
-if (isset($_GET['type']) && $_GET['type'] == "success") {
-    echo '<script> alert("type est ajouté")</script>';
-}else if (isset($_GET['type']) && $_GET['type'] == "error") {
-    echo '<script> alert("erreur lors de lajout")</script>';
-}
-*/
-?>
-
-
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
-<script type="text/javascript" src="./assets/js/Functions.js?v=<?= time(); ?>"></script>
-<script type="text/javascript" src="./assets/js/script.js?v=<?= time(); ?>"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>\
