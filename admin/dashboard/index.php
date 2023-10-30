@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$database = new Database();
 include_once "../../db/config.php";
 
 
@@ -13,7 +14,8 @@ if(isset($_POST['logout_btn']))
     session_unset();
     session_destroy();
 
-    header('Location : ../authentication/login.php');
+    header('Location: ../../authentication/login.php');
+
 }
 
 ?>
@@ -28,7 +30,7 @@ if(isset($_POST['logout_btn']))
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../assets/css/style3.css?v=<?= time(); ?>"></link>
+        <link rel="stylesheet" href="./assets/css/style.css?v=<?= time(); ?>"></link>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     </head>
 </head>
@@ -57,8 +59,8 @@ include "./sidebar.php";
                     </div>
                     <h1 style="color:white;">
                         <?php
-                        $sql = "SELECT count(*) as total from users";
-                        $stmt = $this->connection->prepare($sql);
+                        $stmt = $this->connection->prepare("SELECT *  from admin WHERE  username= ?");
+                        $stmt->bindParam(1, $_SESSION['name']);
                         if($stmt){
                             $stmt->execute();
                             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -157,4 +159,4 @@ if (isset($_GET['type']) && $_GET['type'] == "success") {
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 </body>
 
-</html>
+</html>\

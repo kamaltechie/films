@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ott 26, 2023 alle 19:39
--- Versione del server: 10.4.28-MariaDB
--- Versione PHP: 8.0.28
+-- Generation Time: Oct 29, 2023 at 01:55 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
-  `ID_ADMIN` int(2) NOT NULL AUTO_INCREMENT,
+  `ID_ADMIN` int(2) NOT NULL,
   `USERNAME` varchar(20) DEFAULT NULL,
-  `PASSWORD` char(64) DEFAULT NULL,
-  PRIMARY KEY (ID_ADMIN)
+  `PASSWORD` char(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`ID_ADMIN`, `USERNAME`, `PASSWORD`) VALUES
+(1, 'kamal', '$2y$10$6O3AfNPudCPLoGDkjlyK6ezQK/iuTwtY.OtB30YtpuXe2aszTJVme');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `appartient`
+-- Table structure for table `appartient`
 --
 
 CREATE TABLE `appartient` (
@@ -48,54 +54,51 @@ CREATE TABLE `appartient` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `client`
+-- Table structure for table `client`
 --
 
 CREATE TABLE `client` (
-  `ID_CLIENT` int(2) NOT NULL AUTO_INCREMENT,
+  `ID_CLIENT` int(2) NOT NULL,
   `ID_ADMIN` int(2) DEFAULT NULL,
   `NOM` varchar(20) DEFAULT NULL,
   `PRENOM` varchar(20) DEFAULT NULL,
   `EMAIL` varchar(40) DEFAULT NULL,
   `ADRESSE` varchar(80) DEFAULT NULL,
-  `PASSWORD` char(64) DEFAULT NULL,
-  PRIMARY KEY (ID_CLIENT)
+  `PASSWORD` char(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `collection`
+-- Table structure for table `collection`
 --
 
 CREATE TABLE `collection` (
-  `ID_COLLECTION` int(2) NOT NULL AUTO_INCREMENT,
+  `ID_COLLECTION` int(2) NOT NULL,
   `ID_ADMIN` int(2) NOT NULL,
   `NAME` varchar(20) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
-  `DATE_CREATION` datetime DEFAULT NULL,
-  PRIMARY KEY (ID_COLLECTION)
+  `DATE_CREATION` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `commande`
+-- Table structure for table `commande`
 --
 
 CREATE TABLE `commande` (
-  `NUM_COM` int(2) NOT NULL AUTO_INCREMENT,
+  `NUM_COM` int(2) NOT NULL,
   `ID_CLIENT` int(2) NOT NULL,
   `DATE_COM` date DEFAULT NULL,
   `STATUT_COM` varchar(15) DEFAULT NULL,
-  `TOTAL` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (NUM_COM)
+  `TOTAL` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `commande_item`
+-- Table structure for table `commande_item`
 --
 
 CREATE TABLE `commande_item` (
@@ -107,30 +110,30 @@ CREATE TABLE `commande_item` (
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `film`
+-- Table structure for table `film`
 --
 
 CREATE TABLE `film` (
-  `ID_FILM` int(2) NOT NULL AUTO_INCREMENT,
+  `ID_FILM` int(2) NOT NULL,
   `TITRE` varchar(40) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `PRIX` decimal(6,2) DEFAULT NULL,
   `CATEGORY` varchar(15) DEFAULT NULL,
-  `STATUT` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (ID_FILM)
+  `STATUT` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indici per le tabelle scaricate
+-- Indexes for dumped tables
 --
 
 --
--- Indici per le tabelle `admin`
+-- Indexes for table `admin`
 --
-
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`ID_ADMIN`);
 
 --
--- Indici per le tabelle `appartient`
+-- Indexes for table `appartient`
 --
 ALTER TABLE `appartient`
   ADD PRIMARY KEY (`ID_COLLECTION`,`ID_FILM`),
@@ -138,25 +141,28 @@ ALTER TABLE `appartient`
   ADD KEY `I_FK_APPARTIENT_FILM` (`ID_FILM`);
 
 --
--- Indici per le tabelle `client`
+-- Indexes for table `client`
 --
 ALTER TABLE `client`
+  ADD PRIMARY KEY (`ID_CLIENT`),
   ADD KEY `I_FK_CLIENT_ADMIN` (`ID_ADMIN`);
 
 --
--- Indici per le tabelle `collection`
+-- Indexes for table `collection`
 --
 ALTER TABLE `collection`
+  ADD PRIMARY KEY (`ID_COLLECTION`),
   ADD KEY `I_FK_COLLECTION_ADMIN` (`ID_ADMIN`);
 
 --
--- Indici per le tabelle `commande`
+-- Indexes for table `commande`
 --
 ALTER TABLE `commande`
+  ADD PRIMARY KEY (`NUM_COM`),
   ADD KEY `I_FK_COMMANDE_CLIENT` (`ID_CLIENT`);
 
 --
--- Indici per le tabelle `commande_item`
+-- Indexes for table `commande_item`
 --
 ALTER TABLE `commande_item`
   ADD PRIMARY KEY (`NUM_COM`,`ID_FILM`),
@@ -164,40 +170,76 @@ ALTER TABLE `commande_item`
   ADD KEY `I_FK_COMMANDE_ITEM_FILM` (`ID_FILM`);
 
 --
--- Indici per le tabelle `film`
+-- Indexes for table `film`
+--
+ALTER TABLE `film`
+  ADD PRIMARY KEY (`ID_FILM`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Limiti per le tabelle scaricate
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `ID_ADMIN` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `client`
+--
+ALTER TABLE `client`
+  MODIFY `ID_CLIENT` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `collection`
+--
+ALTER TABLE `collection`
+  MODIFY `ID_COLLECTION` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `NUM_COM` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `film`
+--
+ALTER TABLE `film`
+  MODIFY `ID_FILM` int(2) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Limiti per la tabella `appartient`
+-- Constraints for table `appartient`
 --
 ALTER TABLE `appartient`
   ADD CONSTRAINT `FK_APPARTIENT_COLLECTION` FOREIGN KEY (`ID_COLLECTION`) REFERENCES `collection` (`ID_COLLECTION`),
   ADD CONSTRAINT `FK_APPARTIENT_FILM` FOREIGN KEY (`ID_FILM`) REFERENCES `film` (`ID_FILM`);
 
 --
--- Limiti per la tabella `client`
+-- Constraints for table `client`
 --
 ALTER TABLE `client`
   ADD CONSTRAINT `FK_CLIENT_ADMIN` FOREIGN KEY (`ID_ADMIN`) REFERENCES `admin` (`ID_ADMIN`);
 
 --
--- Limiti per la tabella `collection`
+-- Constraints for table `collection`
 --
 ALTER TABLE `collection`
   ADD CONSTRAINT `FK_COLLECTION_ADMIN` FOREIGN KEY (`ID_ADMIN`) REFERENCES `admin` (`ID_ADMIN`);
 
 --
--- Limiti per la tabella `commande`
+-- Constraints for table `commande`
 --
 ALTER TABLE `commande`
   ADD CONSTRAINT `FK_COMMANDE_CLIENT` FOREIGN KEY (`ID_CLIENT`) REFERENCES `client` (`ID_CLIENT`);
 
 --
--- Limiti per la tabella `commande_item`
+-- Constraints for table `commande_item`
 --
 ALTER TABLE `commande_item`
   ADD CONSTRAINT `FK_COMMANDE_ITEM_COMMANDE` FOREIGN KEY (`NUM_COM`) REFERENCES `commande` (`NUM_COM`),
