@@ -73,22 +73,27 @@
         <input type="password" name="password" id="password" required>
         <br>
         <input type="submit" value="Login" name="submit-btn" id="login">
+        <button id="adminRegister" onclick="showAdminRegistrationPrompt()">Access Admin Registration</button>
     </form>
 
     <script>
         function showAdminRegistrationPrompt() {
+            var attemps = 3;
             const password = prompt('Enter the secret password:');
             const correctPassword = 'kamal'; // Replace with your actual secret password
 
             if (password === correctPassword) {
                 window.location.href = 'register.php';
             } else {
-                alert('Incorrect password. Please try again.');
+                attemps--;
+                alert('Incorrect password. Please try again, you have ' + attemps + ' attemps left.');
+                if (attemps == 0) {
+                    alert('You have no more attemps left, please try again later.');
+            }
+
             }
         }
     </script>
-
-    <button onclick="showAdminRegistrationPrompt()">Access Admin Registration</button>
     </body>
     </html>
 
