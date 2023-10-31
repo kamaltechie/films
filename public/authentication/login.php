@@ -27,7 +27,7 @@ class UserAuthentication {
                     session_start();
                     session_regenerate_id();
                     $_SESSION['loggedin'] = true;
-                    $_SESSION['user_id'] = $result[0]['id_user'];
+                    $_SESSION['user_id'] = $result[0]['id_client'];
                     header("Location: ../index.php");
                     exit;
                 }
@@ -69,6 +69,7 @@ if (isset($_POST['submit-btn'])) {
     <br>
     <input type="submit" value="Login" name="submit-btn" id="login">
     <a href="forgotPassword.php">Forgot password?</a>
+    <a href="register.php">new user?</a>
 </form>
 </body>
 </html>
