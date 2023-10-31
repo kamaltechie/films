@@ -2,6 +2,18 @@
 
     require '../../db/config.php';
 
+
+    session_start();
+
+    if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+        // Distruggi la sessione
+        session_destroy();
+        // Reindirizza l'utente alla pagina di login
+        header('Location: login.php');
+        exit;
+    }
+
+
     class UserAuthentication {
         private $connection;
 
@@ -34,7 +46,7 @@
                         $_SESSION['loggedin'] = TRUE;
                         $_SESSION['name'] = $username;
                         $_SESSION['user_id'] = $result[0]['id'];
-                        header("Location: /films/admin/dashboard/index.php");
+                        header("Location: /films/admin/dashboard/test.html");
                         exit;
                     }
 
