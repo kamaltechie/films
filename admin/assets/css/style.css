@@ -1,0 +1,88 @@
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            max-width: 300px;
+            padding: 40px;
+            background:rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+            margin-left: 375px;
+        }
+        h1{
+            font-family: "Audiowide", sans-serif;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] { 
+            width: 92.5%;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #fff;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px; 
+        }
+
+        input[type="submit"] { 
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer; 
+
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        #login{
+            margin-top: 15px;
+            
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body{
+            background-image: url(https://static.vecteezy.com/system/resources/previews/001/254/680/non_2x/cinema-background-concept-vector.jpg);
+            background-size: cover;
+        }
+        h2 {
+            color: white;
+            font-family: "Audiowide", sans-serif;
+            position: fixed;
+            bottom: 20px; 
+            right: 20px; 
+            margin: 0; 
+            padding: 0;
+            font-size: 25px;  
+        }
