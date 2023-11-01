@@ -10,6 +10,9 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FilmMarket - Home</title>
     <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 <!-- Navbar -->
@@ -77,54 +80,47 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         $offset = ($currentPage - 1) * $filmsPerPage;
 
         // Display films for the current page
+
         for ($i = $offset; $i < min($filmsCount, $offset + $filmsPerPage); $i++) {
-            $film = $films[$i];
+        $film = $films[$i];
 
+        if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
+        echo '<div class="film">';
+            echo '<h3>' . $film->TITRE . '</h3>';
+            // Add a data attribute to store the film ID
+            echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+            echo '<p>' . $film->CATEGORY . '</p>';
+            echo '</div>';
+        } else {
+        echo '<p>Invalid film data</p>'; // Handle invalid data
         }
+        }
+        ?>
+        <div class="pagination">
+            <?php
+            $itemsPerPage = $filmsPerPage; // Adjust the number of items per page as needed
+            $totalItems = $filmsCount; // Total number of films
+
+            $pagination = new Pagination($itemsPerPage, $totalItems);
+
+            // Generate pagination links
+            $paginationHtml = $pagination->getPaginationLinks($currentPage, 'index.php');
+
+            echo $paginationHtml;
             ?>
-        <section class="films-section">
-            <div class="film-list">
-                <?php for ($i = $offset; $i < min($filmsCount, $offset + $filmsPerPage); $i++) {
-    $film = $films[$i];
+        </div>
+    </div>
+    <div id="filmModal" title="Film Details" style="display: none;">
+        <p id="filmDetails"></p>
+        <button id="submitButton">Submit</button>
+    </div>
 
-                    if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
-                        echo '<div class="film">';
-                        echo '<h3>' . $film->TITRE . '</h3>';
-                        echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image">';
-                        echo '<p>' . $film->CATEGORY . '</p>';
-                        echo '</div>';
-                    } else {
-                        echo '<p>Invalid film data</p>'; // Handle invalid data
-                    }
-} ?>
-                <?php
-                $itemsPerPage = 12; // Adjust the number of items per page as needed
-                $totalItems = count($films); // Assuming $films is the array of films you want to paginate
-
-                $pagination = new Pagination($itemsPerPage, $totalItems);
-
-                // Get the current page from the URL, or set it to 1 if it's not specified
-                $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-
-                // Generate pagination links
-                $paginationHtml = $pagination->getPaginationLinks($currentPage, 'index.php');
-?>
-            </div>
-            <div class="pagination">
-                <?php echo $paginationHtml ?>
-            </div>
-        </section>
+</section>
 
 
 
 </body>
 </html>
-
-
-
-
-
-
 
 <!-- Contact Us Form -->
 <section class="contact-section">
@@ -148,7 +144,6 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
     <p>&copy; 2023 Your Website. All rights reserved.</p>
 </footer>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="assets/js/script.js"></script>
 <script src="assets/js/ajax-pagination.js"></script>
+<script src="assets/js/pop-up.js"></script>
 </html>

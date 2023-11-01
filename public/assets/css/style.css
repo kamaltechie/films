@@ -1,143 +1,177 @@
-/* Reset some default styles for consistency */
-* {
+/* Reset some default browser styles */
+body, h1, h2, p {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Define a common font style */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
 
-/* Navbar styles */
+/* Header styles */
 header {
-    background: #333;
+    background-color: #333;
     color: #fff;
-    padding: 10px 0;
+    padding: 10px;
+    text-align: center;
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
 }
 
 .logo img {
-    width: 80px;
+    max-width: 100px;
 }
 
 .menu {
     list-style: none;
-}
-
-.menu li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.menu a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* User Info styles */
-.user-info button {
-    margin: 0 10px;
-    padding: 5px 15px;
-    background: #444;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Search and Picture section styles */
-.search-section {
-    background: #f0f0f0;
-    padding: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 20px;
 }
 
-.search-bar input {
-    padding: 10px;
-    width: 70%;
+.menu li a {
+    color: #fff;
+    text-decoration: none;
 }
 
-.search-bar button {
-    padding: 10px 20px;
-    background: #444;
+/* Search and Picture Section styles */
+.search-section {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-button {
+    background-color: #333;
     color: #fff;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #555;
+}
+
+.search-bar input[type="text"] {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
 }
 
 .picture img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
+    max-width: 100%;
 }
 
-/* Films section styles */
+/* Films Section with Pagination styles */
 .films-section {
+    background-color: #f0f0f0;
     padding: 20px;
 }
 
 .film-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
-    justify-content: space-between;
 }
 
-/* Pagination styles */
+.film {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+}
+
+.film img {
+    max-width: 100%;
+    height: auto;
+}
+
 .pagination {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
+}
+
+/* Contact Us Form styles */
+.contact-section {
+    background-color: #fff;
+    padding: 20px;
     text-align: center;
 }
 
-.pagination a {
-    padding: 5px 10px;
-    background: #444;
-    color: #fff;
-    text-decoration: none;
-    margin: 0 5px;
-    border-radius: 5px;
-}
-
-/* Contact Us form styles */
-.contact-section {
-    background: #f0f0f0;
-    padding: 20px;
-}
-
-.contact-section h2 {
-    margin-bottom: 20px;
-}
-
 .contact-section form {
-    max-width: 400px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .contact-section label {
-    display: block;
-    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
-.contact-section input,
+.contact-section input[type="text"],
+.contact-section input[type="email"],
 .contact-section textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
 }
 
 .contact-section button {
-    padding: 10px 20px;
-    background: #444;
+    background-color: #333;
     color: #fff;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
+    margin-top: 10px;
+}
+
+.contact-section button:hover {
+    background-color: #555;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Pop-up Dialog styles */
+.ui-dialog {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.ui-dialog button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.ui-dialog button:hover {
+    background-color: #555;
 }
