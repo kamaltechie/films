@@ -1,13 +1,17 @@
 <?php
 
-class UserProfileUpdate {
+namespace classes;
+class UserProfileUpdate
+{
     private $connection;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->connection = $db;
     }
 
-    public function updateUserProfile($userID, $nom, $prenom, $email, $adresse, $password) {
+    public function updateUserProfile($userID, $nom, $prenom, $email, $adresse, $password)
+    {
         // You should add validation and security checks here.
 
         // Hash the new password

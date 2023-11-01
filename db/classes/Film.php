@@ -5,22 +5,23 @@ class Film
 {
 public $ID_FILM;
 public $TITRE;
+
+public $image;
 public $DESCRIPTION;
 public $PRIX;
 public $CATEGORY;
 public $STATUT;
 
-public $image;
 
-public function __construct($ID_FILM, $TITRE, $DESCRIPTION, $PRIX, $CATEGORY, $STATUT, $image)
+public function __construct($ID_FILM, $TITRE, $image, $DESCRIPTION, $PRIX, $CATEGORY, $STATUT)
 {
 $this->ID_FILM = $ID_FILM;
 $this->TITRE = $TITRE;
+$this->image = $image;
 $this->DESCRIPTION = $DESCRIPTION;
 $this->PRIX = $PRIX;
 $this->CATEGORY = $CATEGORY;
 $this->STATUT = $STATUT;
-$this->image = $image; // Initialize the image property
 }
 
 public function printDetails()

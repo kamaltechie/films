@@ -1,5 +1,8 @@
 <?php
-require_once 'classes/UserProfileUpdate.php';
+
+use classes\UserProfileUpdate;
+
+require_once '../db/classes/UserProfileUpdate.php';
 require_once '../db/config.php';
 
 // Check if the user is logged in and get their user ID from the session

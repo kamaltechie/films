@@ -64,8 +64,8 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         $films = $filmRepository->fetchFilms();
 
         // Define the number of films per row and the total number of rows
-        $filmsPerRow = 3;
-        $totalRows = 1;
+        $filmsPerRow = 4;
+        $totalRows = 3;
         $filmsCount = count($films);
         $filmsPerPage = $filmsPerRow * $totalRows;
         $totalPages = ceil($filmsCount / $filmsPerPage);
@@ -87,21 +87,18 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
                 <?php for ($i = $offset; $i < min($filmsCount, $offset + $filmsPerPage); $i++) {
     $film = $films[$i];
 
-    if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
-        echo '<div class="film">';
-        echo '<h3>' . $film->TITRE . '</h3>';
-        echo '<img src="' . $film->image . '" alt="Film Image">';
-        echo '<p>' . $film->DESCRIPTION . '</p>';
-        echo '<p>' . $film->PRIX . '</p>';
-        echo '<p>' . $film->CATEGORY . '</p>';
-        echo '<p>' . $film->STATUT . '</p>';
-        echo '</div>';
-    } else {
-        echo '<p>Invalid film data</p>'; // Handle invalid data
-    }
+                    if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
+                        echo '<div class="film">';
+                        echo '<h3>' . $film->TITRE . '</h3>';
+                        echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image">';
+                        echo '<p>' . $film->CATEGORY . '</p>';
+                        echo '</div>';
+                    } else {
+                        echo '<p>Invalid film data</p>'; // Handle invalid data
+                    }
 } ?>
                 <?php
-                $itemsPerPage = 3; // Adjust the number of items per page as needed
+                $itemsPerPage = 12; // Adjust the number of items per page as needed
                 $totalItems = count($films); // Assuming $films is the array of films you want to paginate
 
                 $pagination = new Pagination($itemsPerPage, $totalItems);
@@ -114,23 +111,14 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 ?>
             </div>
             <div class="pagination">
-                <?php echo $paginationHtml; ?>
+                <?php echo $paginationHtml ?>
             </div>
         </section>
 
-        <!-- Contact Us Form -->
-        <section class="contact-section">
-            <!-- Your contact form code goes here -->
-        </section>
 
-        <footer>
-            <p>&copy; 2023 Your Website. All rights reserved.</p>
-        </footer>
+
 </body>
 </html>
-Make sure to replace the placeholder functions (getTotalNumberOfItemsFromDatabase and fetchFilmsFromDatabase) with your actual database queries to get the total number of items and fetch films from the database.
-
-This example illustrates the integration of pagination with the films listing section. The Pagination class generates the pagination links, and the code handles displaying films based on the current page. You should also include the appropriate database queries to fetch films.
 
 
 
@@ -161,27 +149,6 @@ This example illustrates the integration of pagination with the films listing se
 </footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            url: 'film_data.php',
-            dataType: 'json',
-            success: function (data) {
-                // Iterate through the fetched film data and display it
-                $.each(data, function (index, film) {
-                    var filmElement = '<div class="film">' +
-                        '<img src="film_images/' + film.image + '" alt="' + film.title + '">' +
-                        '<h3>' + film.title + '</h3>' +
-                        '<p>' + film.description + '</p>' +
-                        '<p>Price: $' + film.prix + '</p>' +
-                        '</div>';
-                    $('.film-list').append(filmElement);
-                });
-            },
-            error: function () {
-                alert('Failed to fetch film data.');
-            }
-        });
-    });
-</script>
+<script src="assets/js/script.js"></script>
+<script src="assets/js/ajax-pagination.js"></script>
 </html>
