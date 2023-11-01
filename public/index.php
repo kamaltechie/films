@@ -55,6 +55,7 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 
 
 <!-- Films Section with Pagination -->
+
 <section class="films-section">
     <div class="film-list">
 
@@ -96,6 +97,9 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         }
         }
         ?>
+        <div class="search-results" id="search-results">
+            <!-- Search results will be displayed here. -->
+        </div>
         <div class="pagination">
             <?php
             $itemsPerPage = $filmsPerPage; // Adjust the number of items per page as needed
@@ -146,4 +150,5 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 </body>
 <script src="assets/js/ajax-pagination.js"></script>
 <script src="assets/js/pop-up.js"></script>
+<script src="assets/js/search.js"></script>
 </html>

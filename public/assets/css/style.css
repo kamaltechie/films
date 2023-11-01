@@ -175,3 +175,6 @@ footer {
 .ui-dialog button:hover {
     background-color: #555;
 }
+.hide {
+    display: none;
+}

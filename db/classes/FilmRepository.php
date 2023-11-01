@@ -54,4 +54,54 @@ class FilmRepository {
             return null; // Film not found
         }
     }
+    public function searchFilms($searchQuery) {
+        $films = array();
+
+        // Modify your SQL query to search for films based on your criteria
+        $searchParam = '%' . $searchQuery . '%';  // Create a variable for the bound value
+        $stmt = $this->connection->prepare("SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY, STATUT FROM film WHERE TITRE LIKE :searchQuery");
+        $stmt->bindParam(':searchQuery', $searchParam, PDO::PARAM_STR);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // Instantiate the Film class with the correct namespace
+            $film = new \classes\Film(
+                $row['ID_FILM'],
+                $row['TITRE'],
+                $row['image'],
+                $row['DESCRIPTION'],
+                $row['PRIX'],
+                $row['CATEGORY'],
+                $row['STATUT']
+            );
+            $films[] = $film;
+        }
+
+        return $films;
+    }
+    public function searchFilmsByTitle($searchQuery) {
+        $films = array();
+
+        $stmt = $this->connection->prepare("SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY, STATUT FROM film WHERE TITRE LIKE :search");
+        $searchQuery = '%' . $searchQuery . '%';
+        $stmt->bindParam(':search', $searchQuery, PDO::PARAM_STR);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // Instantiate the Film class with the correct namespace
+            $film = new \classes\Film(
+                $row['ID_FILM'],
+                $row['TITRE'],
+                $row['image'],
+                $row['DESCRIPTION'],
+                $row['PRIX'],
+                $row['CATEGORY'],
+                $row['STATUT']
+            );
+            $films[] = $film;
+        }
+
+        return $films;
+    }
+
 }
