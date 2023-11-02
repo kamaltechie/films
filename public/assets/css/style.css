@@ -18,6 +18,8 @@ header {
 }
 
 nav {
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -177,4 +179,41 @@ footer {
 }
 .hide {
     display: none;
+}
+header {
+    position: sticky;
+    top: 0;
+    background-color: #333; /* Change to your desired background color */
+    z-index: 1000;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5px; /* Adjust as needed */
+}
+
+header .logo img {
+    max-width: 30px; /* Adjust logo size as needed */
+}
+
+header ul.menu {
+    list-style: none;
+    display: flex;
+}
+
+header ul.menu li {
+    margin: 0 15px;
+}
+
+header ul.menu li a {
+    text-decoration: none;
+    color: white; /* Change to your desired text color */
+    font-weight: bold;
+}
+
+header .user-info {
+    display: flex;
+    align-items: center;
 }

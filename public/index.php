@@ -23,18 +23,27 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         </div>
         <ul class="menu">
             <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Collections</a></li>
-            <li><a href="#">Films</a></li>
-            <li><a href="#">Contact us</a></li>
+            <li><a href="#about-us">About Us</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#films-section">Films</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="user-info">
-            <button class="cart-icon">Cart</button>
+            <button class="cart-icon">
+                Cart (<span id="cart-count">0</span>)
+            </button>
             <a href="authentication/login.php" class="logout"><button class="logout">Logout</button></a>
             <a href="account.php" class="user-profile"><button class="user-profile" onclick="toggleProfileUpdate()">Profile</button></a>
         </div>
     </nav>
 </header>
+
+<!-- About Us Section -->
+<section id="about-us">
+    <h2>About Us</h2>
+    <p>Welcome to our film website! We are passionate about movies and strive to provide the best film collection for our audience.</p>
+    <!-- Add more content as desired -->
+</section>
 
 <!-- Search and Picture Section -->
 <section class="search-section">
@@ -56,7 +65,7 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 
 <!-- Films Section with Pagination -->
 
-<section class="films-section">
+<section id="films-section" class="films-section">
     <div class="film-list">
         <?php
         $db = new Database();
@@ -121,12 +130,18 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
     <?php echo $paginationHtml; ?>
 </div>
 
+<section id="collections">
+    <h2>Collections</h2>
+    <p>Explore our vast array of film collections. Whether you love action, drama, or comedy, we have something for everyone.</p>
+    <!-- Add more content as desired -->
+</section>
+
 </body>
 </html>
 
 <!-- Contact Us Form -->
 
-<section class="contact-section">
+<section id="contact" class="contact-section">
     <h2>Contact Us</h2>
     <form>
         <label for="name">Name:</label>
