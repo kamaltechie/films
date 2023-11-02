@@ -11,15 +11,16 @@ if (isset($_POST['searchQuery'])) {
     $db = new Database();
     $filmRepository = new FilmRepository($db->getConnection());
 
-    // Fetch films based on the search query for the title
-    $films = $filmRepository->searchFilmsByTitle($searchQuery);
+    // Fetch films based on the search query
+    $films = $filmRepository->searchFilms($searchQuery);
 
     // Generate HTML content for the search results
     if (!empty($films)) {
         foreach ($films as $film) {
             echo '<div class="film">';
             echo '<h3>' . $film->TITRE . '</h3>';
-            echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image">';
+            // Add a data attribute to store the film ID
+            echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
             echo '<p>' . $film->CATEGORY . '</p>';
             echo '</div>';
         }

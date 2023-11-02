@@ -65,11 +65,17 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         $filmRepository = new FilmRepository($db->getConnection());
 
         // Fetch films from the database
-        $films = $filmRepository->fetchFilms();
+        if (isset($_POST['searchQuery']) && !empty($films)) {
+            // Fetch films based on the search query
+            $films = $filmRepository->searchFilmsByTitle($_POST['searchQuery']);
+        } else {
+            // Fetch all films from the database
+            $films = $filmRepository->fetchFilms();
+        }
 
         // Define the number of films per row and the total number of rows
-        $filmsPerRow = 4;
-        $totalRows = 3;
+        $filmsPerRow = 2;
+        $totalRows = 2;
         $filmsCount = count($films);
         $filmsPerPage = $filmsPerRow * $totalRows;
         $totalPages = ceil($filmsCount / $filmsPerPage);
@@ -81,25 +87,21 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         $offset = ($currentPage - 1) * $filmsPerPage;
 
         // Display films for the current page
-
         for ($i = $offset; $i < min($filmsCount, $offset + $filmsPerPage); $i++) {
-        $film = $films[$i];
+            $film = $films[$i];
 
-        if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
-        echo '<div class="film">';
-            echo '<h3>' . $film->TITRE . '</h3>';
-            // Add a data attribute to store the film ID
-            echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
-            echo '<p>' . $film->CATEGORY . '</p>';
-            echo '</div>';
-        } else {
-        echo '<p>Invalid film data</p>'; // Handle invalid data
-        }
+            if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
+                echo '<div class="film">';
+                echo '<h3>' . $film->TITRE . '</h3>';
+                // Add a data attribute to store the film ID
+                echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+                echo '<p>' . $film->CATEGORY . '</p>';
+                echo '</div>';
+            } else {
+                echo '<p>Invalid film data</p>'; // Handle invalid data
+            }
         }
         ?>
-        <div class="search-results" id="search-results">
-            <!-- Search results will be displayed here. -->
-        </div>
         <div class="pagination">
             <?php
             $itemsPerPage = $filmsPerPage; // Adjust the number of items per page as needed
