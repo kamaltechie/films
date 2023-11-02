@@ -1,4 +1,7 @@
 <?php
+
+use classes\Pagination;
+
 require_once '../db/config.php'; // Include your database configuration file
 require_once '../db/classes/FilmRepository.php'; // Include your FilmRepository class
 require_once '../db/classes/Pagination.php'; // Include your Pagination class
@@ -10,9 +13,6 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FilmMarket - Home</title>
     <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your CSS file -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 <!-- Navbar -->
@@ -58,77 +58,74 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 
 <section class="films-section">
     <div class="film-list">
-
         <?php
-
         $db = new Database();
         $filmRepository = new FilmRepository($db->getConnection());
 
-        // Fetch films from the database
-        if (isset($_POST['searchQuery']) && !empty($films)) {
-            // Fetch films based on the search query
-            $films = $filmRepository->searchFilmsByTitle($_POST['searchQuery']);
-        } else {
-            // Fetch all films from the database
-            $films = $filmRepository->fetchFilms();
-        }
-
         // Define the number of films per row and the total number of rows
-        $filmsPerRow = 2;
-        $totalRows = 2;
-        $filmsCount = count($films);
-        $filmsPerPage = $filmsPerRow * $totalRows;
-        $totalPages = ceil($filmsCount / $filmsPerPage);
+        $filmsPerRow = 4;
+        $totalRows = 3;
 
         // Retrieve the current page number from the URL or use 1 if not specified
         $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
         // Calculate the offset based on the current page
+        $filmsPerPage = $filmsPerRow * $totalRows;
         $offset = ($currentPage - 1) * $filmsPerPage;
 
-        // Display films for the current page
-        for ($i = $offset; $i < min($filmsCount, $offset + $filmsPerPage); $i++) {
-            $film = $films[$i];
+        // Fetch films from the database
+        if (isset($_POST['searchQuery']) && !empty($_POST['searchQuery'])) {
+            // Fetch films based on the search query
+            $films = $filmRepository->searchFilmsByTitle($_POST['searchQuery']);
+        } else {
+            // Fetch all films from the database with pagination
+            $films = $filmRepository->fetchFilmsWithPagination($filmsPerPage, $offset);
+        }
 
-            if ($film instanceof \classes\Film) { // Ensure $film is an instance of Film
+        foreach ($films as $film) {
+            if ($film instanceof \classes\Film) {
                 echo '<div class="film">';
                 echo '<h3>' . $film->TITRE . '</h3>';
                 // Add a data attribute to store the film ID
                 echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
                 echo '<p>' . $film->CATEGORY . '</p>';
                 echo '</div>';
-            } else {
-                echo '<p>Invalid film data</p>'; // Handle invalid data
             }
         }
         ?>
         <div class="pagination">
             <?php
             $itemsPerPage = $filmsPerPage; // Adjust the number of items per page as needed
-            $totalItems = $filmsCount; // Total number of films
+            $totalItems = $filmRepository->getTotalFilmsCount(); // Total number of films
 
-            $pagination = new Pagination($itemsPerPage, $totalItems);
+            $pagination = new Pagination($currentPage, $totalItems, $itemsPerPage);
 
-            // Generate pagination links
-            $paginationHtml = $pagination->getPaginationLinks($currentPage, 'index.php');
+            $paginationHtml = $pagination->getPaginationLinks(
+                'index.php',
+                isset($_POST['searchQuery']) ? ['searchQuery' => $_POST['searchQuery'] ] : []
+            );
 
-            echo $paginationHtml;
             ?>
         </div>
+
+
     </div>
     <div id="filmModal" title="Film Details" style="display: none;">
         <p id="filmDetails"></p>
         <button id="submitButton">Submit</button>
     </div>
-
 </section>
 
 
+<div>
+    <?php echo $paginationHtml; ?>
+</div>
 
 </body>
 </html>
 
 <!-- Contact Us Form -->
+
 <section class="contact-section">
     <h2>Contact Us</h2>
     <form>
@@ -151,6 +148,9 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
 </footer>
 </body>
 <script src="assets/js/ajax-pagination.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="assets/js/pop-up.js"></script>
 <script src="assets/js/search.js"></script>
 </html>

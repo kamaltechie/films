@@ -20,8 +20,8 @@ $(document).ready(function () {
     loadFilms(currentPage);
 
     $(document).on('click', '.pagination a', function (e) {
-        e.preventDefault();
-        currentPage = $(this).text();
-        loadFilms(currentPage);
+        e.preventDefault(); // Prevent the default behavior of the link
+        currentPage = $(this).text(); // Get the page number from the clicked link
+        loadFilms(currentPage); // Load films for the clicked page
     });
 });
