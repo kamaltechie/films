@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    // Initialize the cart count
+    // Initialize the cart count and cart array
     let cartCount = 0;
+    let cart = [];
 
     // Add a class to each film image for easier selection
     $('.film img').addClass('film-image');
@@ -25,10 +26,13 @@ $(document).ready(function () {
                             "Add to Cart": function () {
                                 // Increment the cart count
                                 cartCount++;
+
+                                // Add the film to the cart (assuming it's an array)
+                                cart.push(filmId);
+
                                 // Update the cart count display
                                 $('#cart-count').text(cartCount);
-                                // Implement the action to add the film to the cart here
-                                // You can use another AJAX request to add the film to the cart
+
                                 alert('Added to Cart'); // Replace with your actual cart logic
                                 $(this).dialog("close");
                             },
@@ -51,23 +55,3 @@ $(document).ready(function () {
         window.location.href = 'cart_page.php';
     });
 });
-// Handle cart validation
-$('#validate-cart').click(function () {
-    $.ajax({
-        url: 'validate_cart.php',
-        method: 'POST',
-        success: function (data) {
-            if (data.success) {
-                // Cart successfully validated
-                alert('Your order has been placed!');
-                // Clear the cart and update the cart count
-                cartCount = 0;
-                $('#cart-count').text(cartCount);
-            } else {
-                alert('Failed to validate your cart.');
-            }
-        }
-    });
-});
-
-

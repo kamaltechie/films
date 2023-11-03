@@ -24,8 +24,8 @@ require_once '../db/classes/Pagination.php'; // Include your Pagination class
         <ul class="menu">
             <li><a href="#">Home</a></li>
             <li><a href="#about-us">About Us</a></li>
-            <li><a href="#collections">Collections</a></li>
             <li><a href="#films-section">Films</a></li>
+            <li><a href="#collections">Collections</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="user-info">
