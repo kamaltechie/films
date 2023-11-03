@@ -18,4 +18,3 @@ if (isset($_POST['filmId'])) {
 } else {
     echo json_encode(['success' => false]);
 }
-?>

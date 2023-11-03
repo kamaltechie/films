@@ -1,6 +1,9 @@
 <?php
-session_start();
+require_once '../db/config.php'; // Include your database configuration file
+require_once '../db/classes/FilmRepository.php';
 
+session_start();
+var_dump($_SESSION);
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     echo "Your cart is empty.";
 } else {
