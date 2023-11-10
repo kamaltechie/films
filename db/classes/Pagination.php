@@ -21,9 +21,9 @@ $paginationHtml = '<div class="pagination">';
     $pageUrl = $baseUrl . '?' . http_build_query($params);
 
     if ($page == $this->currentPage) {
-    $paginationHtml .= '<a class="active" href="' . $pageUrl . '">' . $page . '</a>';
+    $paginationHtml .= '<a class="active" href=" '. $pageUrl.' ' . ' ">'   . $page .' -  </a>  ';
     } else {
-    $paginationHtml .= '<a href="' . $pageUrl . '">' . $page . '</a>';
+    $paginationHtml .= ' <a href="' . $pageUrl . '">' . $page. ' </a>';
     }
     }
 

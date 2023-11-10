@@ -10,10 +10,9 @@ public $image;
 public $DESCRIPTION;
 public $PRIX;
 public $CATEGORY;
-public $STATUT;
 
 
-public function __construct($ID_FILM, $TITRE, $image, $DESCRIPTION, $PRIX, $CATEGORY, $STATUT)
+public function __construct($ID_FILM, $TITRE, $image, $DESCRIPTION, $PRIX, $CATEGORY)
 {
 $this->ID_FILM = $ID_FILM;
 $this->TITRE = $TITRE;
@@ -21,7 +20,6 @@ $this->image = $image;
 $this->DESCRIPTION = $DESCRIPTION;
 $this->PRIX = $PRIX;
 $this->CATEGORY = $CATEGORY;
-$this->STATUT = $STATUT;
 }
 
 public function printDetails()
