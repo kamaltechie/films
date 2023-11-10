@@ -1,10 +1,10 @@
 <?php
 
-
-
-require '../../db/config.php';
-include_once '../../db/classes/Client.php';
-
+    require '../../db/config.php';
+    include_once '../../db/classes/Client.php';
+    include_once '../../db/classes/Collection.php';
+    include_once '../../db/classes/Commande.php';
+    include_once '../../db/classes/Film.php';
 
 ?>
 <!DOCTYPE html>
@@ -16,6 +16,8 @@ include_once '../../db/classes/Client.php';
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <title>Admin</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -24,8 +26,6 @@ include_once '../../db/classes/Client.php';
     <!-- CSS Files -->
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../../assets/css/demo.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -62,7 +62,7 @@ include_once '../../db/classes/Client.php';
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="./commande.html">
+                    <a class="nav-link" href="./viewCommande.php">
                         <i class="nc-icon nc-paper-2"></i>
                         <p>Commande</p>
                     </a>
@@ -106,26 +106,53 @@ include_once '../../db/classes/Client.php';
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="content">
-        <div>
+        <div class="statistics">
+            <div class="statistics-user">
                 <?php
-
-                // Create an instance of the Database class and establish a database connection
                 $database = new Database();
                 $connection = $database->getConnection();
 
-                // Create an instance of the Client class with all required arguments
-
-
-                // Call the getTotalUser method to get the total number of users
                 $client = new classes\Client($connection);
                 $total_user= $client->getTotalUser();
-                echo $total_user;
-
-                $client->printDetails();
-
-
+                echo "<h1>Total user subscribed:   $total_user</h1> ";
                 ?>
+            </div>
+            <div class="statistics-collections">
+                <?php
+                $database = new Database();
+                $connection = $database->getConnection();
+
+                $collection =new classes\Collection($connection,null,null,null,null,null);
+                $total_collections=$collection->getTotalCollections();
+                echo "<h1>Total collection:   $total_collections</h1> ";
+                ?>
+            </div>
+
+
+
+            <div class="statistics-commande">
+                <?php
+                $database = new Database();
+                $connection = $database->getConnection();
+
+                $commande =new classes\Commande($connection,null,null,null,null,null);
+                $total_commande=$commande->getTotalCommande();
+                echo "<h1>Total commande:   $total_commande</h1> ";
+                ?>
+
+            </div>
+
+
+            <div class="statistics-films">
+                <?php
+                $database = new Database();
+                $connection = $database->getConnection();
+
+                $film =new classes\Film($connection,null,null,null,null,null,null,null);
+                $total_film=$film->getTotalFilm();
+                echo "<h1>Film in our databases:   $total_film</h1> ";
+                ?>
+            </div>
         </div>
         </div>
         <footer class="footer">
@@ -146,22 +173,8 @@ include_once '../../db/classes/Client.php';
 </div>
 
 </body>
-<!--   Core JS Files   -->
-<script src="../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-<script src="../assets/js/plugins/bootstrap-switch.js"></script>
-<!--  Google Maps Plugin    -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!--  Chartist Plugin  -->
-<script src="../assets/js/plugins/chartist.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
-<script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/js/demo.js"></script>
+<script src="../assets/js/functions.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js
@@ -171,5 +184,7 @@ include_once '../../db/classes/Client.php';
 
     });
 </script>
+
+
 
 </html>
