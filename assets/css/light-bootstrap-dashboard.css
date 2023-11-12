@@ -11,7 +11,7 @@
 =========================================================
 
  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.*/
- 
+
 /*      light colors         */
 
 @keyframes spin {
@@ -5309,5 +5309,18 @@ License - nucleoapp.com/license/
 .nc-zoom-split::before {
     content: "\ea64";
 }
+
+
+/* style.css */
+
+
+.statistics {
+    background-color: #f8f9fa; /* Colore di sfondo */
+    padding: 20px; /* Spazio interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra */
+    margin: 20px; /* Margine esterno */
+    border-radius: 5px; /* Bordi arrotondati */
+}
+
 
 /* all icon font classes list here */

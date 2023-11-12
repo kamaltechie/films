@@ -46,7 +46,7 @@
                         $_SESSION['loggedin'] = TRUE;
                         $_SESSION['name'] = $username;
                         $_SESSION['user_id'] = $result[0]['id'];
-                        header("Location: /films/admin/dashboard/test.html");
+                        header("Location: /films/admin/dashboard/test.php");
                         exit;
                     }
 
