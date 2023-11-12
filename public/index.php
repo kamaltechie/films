@@ -13,8 +13,7 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FilmMarket - Home</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <!-- Navbar -->
@@ -113,14 +112,14 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
         }
 
         foreach ($films as $film) {
-            if ($film instanceof \classes\Film) {
-                echo '<div class="film">';
-                echo '<h3>' . $film->TITRE . '</h3>';
-                // Add a data attribute to store the film ID
-                echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
-                echo '<p>' . $film->CATEGORY . '</p>';
-                echo '</div>';
-            }
+    if ($film instanceof \classes\Film) {
+        echo '<div class="film">';
+        echo '<h3>' . $film->TITRE . '</h3>';
+        echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+        echo '<p>' . $film->CATEGORY . '</p>';
+        echo '</div>';
+    }
+
         }
         ?>
         <div class="pagination">
@@ -203,17 +202,12 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
     <p>&copy; 2023 Your Website. All rights reserved.</p>
 </footer>
 </body>
-<script src="assets/js/ajax-pagination.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="assets/js/pop-up.js"></script>
 <script src="assets/js/search.js"></script>
-<script>
-    $(document).ready(function () {
-        // Initialize the carousel
-        $('.carousel').carousel();
-    });
-</script>
+<script src="assets/js/ajax-pagination.js"></script>
 <script>
     $(document).ready(function () {
         // Initialize collections carousel

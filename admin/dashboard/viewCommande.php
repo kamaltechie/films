@@ -1,10 +1,7 @@
 <?php
 require '../../db/config.php';
-include_once '../../db/classes/Client.php';
-include_once '../../db/classes/Collection.php';
 include_once '../../db/classes/Commande.php';
 include_once '../../db/classes/CommandeRepository.php';
-include_once '../../db/classes/Film.php';
 ?>
 <!DOCTYPE html>
 
@@ -41,7 +38,7 @@ include_once '../../db/classes/Film.php';
             </div>
             <ul class="nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="test.php">
+                    <a class="nav-link" href="index.php">
                         <i class="nc-icon nc-chart-pie-35"></i>
                         <p>Dashboard</p>
                     </a>
