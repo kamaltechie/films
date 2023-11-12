@@ -1,7 +1,10 @@
 <?php
-session_start();
 
-if (isset($_POST['filmId'])) {
+session_start();
+session_start();
+$_SESSION['test'] = 'Hello, World!';
+echo 'Session set.';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $filmId = $_POST['filmId'];
 
     // Initialize the cart array if it doesn't exist
@@ -11,10 +14,11 @@ if (isset($_POST['filmId'])) {
 
     // Check if the filmId is already in the cart
     $found = false;
-    foreach ($_SESSION['cart'] as $item) {
+    foreach ($_SESSION['cart'] as $key => $item) {
         if ($item['filmId'] == $filmId) {
             $found = true;
             // Increase quantity or perform any other action if needed
+            $_SESSION['cart'][$key]['quantity'] += 1;
             break;
         }
     }
@@ -24,7 +28,9 @@ if (isset($_POST['filmId'])) {
         $_SESSION['cart'][] = ['filmId' => $filmId, 'quantity' => 1];
     }
 
-    echo json_encode(['success' => true]);
+    $response = ['success' => true, 'cart' => $_SESSION['cart']];
+    echo json_encode($response);
+    var_dump($_SESSION['cart']);
 } else {
     echo json_encode(['success' => false]);
 }

@@ -153,6 +153,7 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
 <hr>
 <hr>
 
+
 <section id="collections">
     <h2>Collections</h2>
 
@@ -208,59 +209,4 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
 <script src="assets/js/pop-up.js"></script>
 <script src="assets/js/search.js"></script>
 <script src="assets/js/ajax-pagination.js"></script>
-<script>
-    $(document).ready(function () {
-        // Initialize collections carousel
-        $('#collections-carousel').carousel();
-
-        // Add your JavaScript/jQuery logic for showing films carousel here
-        $('.carousel-item').click(function () {
-            // Get the data-collection attribute value
-            var collection = $(this).find('.films-carousel').data('collection');
-
-            // Display films carousel corresponding to the clicked collection
-            $('.films-carousel[data-collection="' + collection + '"]').show().siblings('.films-carousel').hide();
-        });
-
-        // Initialize films carousel
-        $('.films-carousel').carousel();
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        // Fetch collections from the server when the page is loaded
-        $.ajax({
-            url: 'path/to/your/server-side-script.php',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                // Populate the collections carousel with fetched data
-                populateCollectionsCarousel(data);
-            },
-            error: function() {
-                console.error('Failed to fetch collections.');
-            }
-        });
-    });
-
-    // Function to populate the collections carousel
-    function populateCollectionsCarousel(collections) {
-        var carouselInner = $('#collections-carousel');
-
-        // Iterate through collections and create carousel items
-        for (var i = 0; i < collections.length; i++) {
-            var collection = collections[i];
-            var carouselItem = $('<div class="carousel-item"></div>');
-
-            // Set the collection name as a clickable element
-            var collectionName = $('<a href="#" onclick="showCollectionDetails(' + collection.ID_COLLECTION + ')">' + collection.NAME + '</a>');
-
-            carouselItem.append(collectionName);
-            carouselInner.append(carouselItem);
-        }
-    }
-
-</script>
-
 </html>

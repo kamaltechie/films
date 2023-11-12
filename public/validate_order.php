@@ -1,5 +1,4 @@
 <?php
-
 require_once '../db/config.php';
 require_once '../db/classes/FilmRepository.php';
 
@@ -15,7 +14,6 @@ try {
     $cartForCalculation = $_SESSION['cart'];
 
     // Create a new Database instance
-    $db = new Database();
     $filmRepository = new FilmRepository($db->getConnection());
 
     // Check if any quantity changes were submitted
@@ -24,14 +22,17 @@ try {
             // Ensure quantity is a positive integer
             $quantity = filter_var($quantity, FILTER_VALIDATE_INT);
             if ($quantity > 0) {
-                $cartForCalculation[$filmId] = $quantity;
+                $cartForCalculation[$filmId]['quantity'] = $quantity; // Adjust array structure
             }
         }
         $_SESSION['cart'] = $cartForCalculation; // Update the session cart
     }
 
     // Calculate the total cost
-    foreach ($cartForCalculation as $filmId => $quantity) {
+    foreach ($cartForCalculation as $item) {
+        $filmId = $item['filmId'];
+        $quantity = $item['quantity'];
+
         $film = $filmRepository->fetchFilmById($filmId);
 
         if ($film instanceof \classes\Film) {
@@ -39,10 +40,10 @@ try {
         }
     }
 
-    // Insert data into the "commande" table
-    $clientId = 1; // Replace with the actual client ID
-    $date = date('Y-m-d H:i:s'); // Get the current date and time
-    $statut = 'pending'; // Set the default status to pending
+
+    $clientId = 1;
+    $date = date('Y-m-d H:i:s');
+    $statut = 'pending';
 
     $insertCommandeSQL = "INSERT INTO commande (ID_CLIENT, DATE_COM, STATUT_COM, TOTAL) VALUES (:clientId, :date, :statut, :total)";
     $insertCommandeStmt = $db->getConnection()->prepare($insertCommandeSQL);
@@ -52,42 +53,24 @@ try {
     $insertCommandeStmt->bindParam(':total', $totalCost);
 
     if ($insertCommandeStmt->execute()) {
-        // Get the last insert ID within the same transaction
-        $lastInsertId = $db->getConnection()->lastInsertId();
-
-        // Insert data into the "commande_item" table
-        $insertCommandeItemSQL = "INSERT INTO commande_item (NUM_COM, ID_FILM, QUANTITY) VALUES (:numCom, :filmId, :quantity)";
-        $insertCommandeItemStmt = $db->getConnection()->prepare($insertCommandeItemSQL);
-
-        foreach ($_SESSION['cart'] as $filmId => $quantity) {
-    // Debugging output
-    echo "Film ID in the cart: $filmId, Quantity: $quantity<br>";
-
-    // Fetch film details
-    $film = $filmRepository->fetchFilmById($filmId);
-
-    if (!$film) {
-        throw new Exception("Film with ID $filmId does not exist.");
-    }
-
-
-            $insertCommandeItemStmt->bindParam(':numCom', $lastInsertId);
-            $insertCommandeItemStmt->bindParam(':filmId', $filmId);
-            $insertCommandeItemStmt->bindParam(':quantity', $quantity);
-
-            if (!$insertCommandeItemStmt->execute()) {
-                throw new Exception("Failed to insert into commande_item. Error: " . implode(" ", $insertCommandeItemStmt->errorInfo()));
-            }
+        // Check if there is an active transaction before committing
+        if ($db->getConnection()->inTransaction()) {
+            $db->getConnection()->commit();
         }
-
-        $db->getConnection()->commit();
-
-        // Display success message
-        echo "Your order has been placed!";
 
         // Clear the cart
         $_SESSION['cart'] = [];
-    } else {
+
+        // Redirect to index.php
+        header('Location: index.php?order=success');
+
+        exit(); // Make sure to exit after a header redirect
+    } ?> <script>
+
+    alert('Your order has been sent!');
+
+ </script> <?php
+ {
         throw new Exception("Failed to place your order.");
     }
 } catch (Exception $e) {
@@ -95,13 +78,3 @@ try {
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Head content goes here -->
-</head>
-<body>
-<!-- Body content goes here -->
-</body>
-</html>
-

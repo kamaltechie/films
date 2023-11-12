@@ -6,7 +6,11 @@ $('.add-to-cart-button').click(function () {
         method: 'POST',
         data: { filmId: filmId },
         success: function (response) {
-            // Handle the response (e.g., update the cart count display)
+            // Handle the response
+            console.log(response); // Log the entire response for debugging
+
+            // Optionally, you can redirect the user to the cart page after adding to the cart
+            // window.location.href = 'cart_page.php';
         }
     });
 });
