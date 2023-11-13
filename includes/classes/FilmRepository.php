@@ -1,6 +1,6 @@
 <?php
-include 'Film.php';
 
+namespace classes;
 class FilmRepository {
     private $connection;
 
@@ -151,7 +151,9 @@ class FilmRepository {
     public function getFilmsFromDatabase()
     {
         try {
-            $stmt = $this->db->query("SELECT * FROM film");
+            $query=("SELECT * FROM film");
+            $stmt= $this->connection->prepare($query);
+            $stmt->execute();
             $films = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $films;
         } catch (\PDOException $e) {
