@@ -89,8 +89,10 @@ require_once '../includes/classes/collectionRepository.php'; // Include your Col
 <section id="films-section" class="films-section">
     <div class="film-list">
         <?php
-        $db = new Database();
-        $filmRepository = new FilmRepository($db->getConnection());
+        $database = new Database();
+        $connection = $database->getConnection();
+
+        $filmRepository = new classes\FilmRepository()
 
         // Define the number of films per row and the total number of rows
         $filmsPerRow = 4;
