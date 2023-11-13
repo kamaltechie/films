@@ -1,7 +1,7 @@
 <?php
-require '../../db/config.php';
-include_once '../../db/classes/Commande.php';
-include_once '../../db/classes/CommandeRepository.php';
+require '../../includes/config.php';
+include_once '../../includes/classes/Commande.php';
+include_once '../../includes/classes/CommandeRepository.php';
 ?>
 <!DOCTYPE html>
 
@@ -25,88 +25,8 @@ include_once '../../db/classes/CommandeRepository.php';
 </head>
 
 <body>
-<div class="wrapper">
-    <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
-        <!--
-
--->
-        <div class="sidebar-wrapper">
-            <div class="logo">
-                <a href="" class="simple-text">
-                    ADMIN PANEL
-                </a>
-            </div>
-            <ul class="nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="index.php">
-                        <i class="nc-icon nc-chart-pie-35"></i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./collection.html">
-                        <i class="nc-icon nc-circle-09"></i>
-                        <p href="collections.php">Collections</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./users.html">
-                        <i class="nc-icon nc-notes"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="viewCommande.php">
-                        <i class="nc-icon nc-paper-2"></i>
-                        <p>Commande</p>
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="./film.html">
-                        <i class="nc-icon nc-atom"></i>
-                        <p>Films</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg " color-on-scroll="500">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#pablo"> Dashboard </a>
-                <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-bar burger-lines"></span>
-                    <span class="navbar-toggler-bar burger-lines"></span>
-                    <span class="navbar-toggler-bar burger-lines"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                    <ul class="nav navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nc-icon nc-zoom-split"></i>
-                                <span class="d-lg-block">&nbsp;Search</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../authentication/login.php?logout=true">
-                                <span class="no-icon">Log out</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- End Navbar -->
-        <div class="statistics">
-
-
-
-
-
-            <div class="statistics-commande">
+<?php include 'sidebar.php'; ?>
+       <div class="statistics-commande">
                 <?php
                 $database = new Database();
                 $connection = $database->getConnection();
@@ -247,8 +167,6 @@ include_once '../../db/classes/CommandeRepository.php';
         
       </script>";
                 ?>
-
-
 
             </div>
 

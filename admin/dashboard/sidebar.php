@@ -1,15 +1,3 @@
-<?php
-require '../../includes/config.php';
-    include_once '../../includes/classes/Client.php';
-    include_once '../../includes/classes/Collection.php';
-    include_once '../../includes/classes/Commande.php';
-    include_once '../../includes/classes/Film.php';
-
-?>
-<!DOCTYPE html>
-
-<html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -26,16 +14,14 @@ require '../../includes/config.php';
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
 </head>
-
-<body>
 <div class="wrapper">
     <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
 
-        <div class="sidebar-wrapper">
+<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="" class="simple-text">
-                    ADMIN PANEL
-                </a>
+ADMIN PANEL
+</a>
             </div>
             <ul class="nav">
                 <li class="nav-item active">
@@ -101,88 +87,3 @@ require '../../includes/config.php';
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="statistics">
-            <div class="statistics-user">
-                <?php
-                $database = new Database();
-                $connection = $database->getConnection();
-
-                $client = new classes\Client($connection);
-                $total_user= $client->getTotalUser();
-                echo "<h1>Total user subscribed:   $total_user</h1> ";
-                ?>
-            </div>
-            <div class="statistics-collections">
-                <?php
-                $database = new Database();
-                $connection = $database->getConnection();
-
-                $collection =new classes\Collection($connection,null,null,null,null,null);
-                $total_collections=$collection->getTotalCollections();
-                echo "<h1>Total collection:   $total_collections</h1> ";
-                ?>
-            </div>
-
-
-
-            <div class="statistics-commande">
-                <?php
-                $database = new Database();
-                $connection = $database->getConnection();
-
-                $commande =new classes\Commande($connection,null,null,null,null,null);
-                $total_commande=$commande->getTotalCommande();
-                echo "<h1>Total commande:   $total_commande</h1> ";
-                ?>
-
-            </div>
-
-
-            <div class="statistics-films">
-                <?php
-                $database = new Database();
-                $connection = $database->getConnection();
-
-                // Pass the database connection to the Film class
-                $film = new classes\Film($connection);
-
-                $total_film = $film->getTotalFilm();
-                echo "<h1>Total films: $total_film</h1> ";
-                ?>
-
-            </div>
-        </div>
-        </div>
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav>
-                    <ul class="footer-menu">
-                    </ul>
-                    <p class="copyright text-center">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>
-                    </p>
-                </nav>
-            </div>
-        </footer>
-    </div>
-</div>
-
-</body>
-<script src="../assets/js/functions.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
-
-        demo.showNotification();
-
-    });
-</script>
-
-
-
-</html>

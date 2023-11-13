@@ -1,7 +1,7 @@
 <?php include('partials/navbar.php'); ?>
 <?php
-require_once '../db/config.php';
-require_once '../db/classes/FilmRepository.php';
+require_once '../includes/config.php';
+require_once '../includes/classes/FilmRepository.php';
 
 session_start();
 

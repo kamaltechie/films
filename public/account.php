@@ -3,8 +3,8 @@
 // Include necessary files and start the session
 use classes\UserProfileUpdate;
 
-require_once '../db/classes/UserProfileUpdate.php';
-require_once '../db/config.php';
+require_once '../includes/classes/UserProfileUpdate.php';
+require_once '../includes/config.php';
 
 session_start();
 

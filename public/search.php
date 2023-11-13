@@ -1,7 +1,7 @@
 <?php
 // Include your database configuration and FilmRepository classes
-require_once '../db/config.php';
-require_once '../db/classes/FilmRepository.php';
+require_once '../includes/config.php';
+require_once '../includes/classes/FilmRepository.php';
 
 // Check if the search query is provided via POST request
 if (isset($_POST['searchQuery'])) {
@@ -20,7 +20,7 @@ if (isset($_POST['searchQuery'])) {
             echo '<div class="film">';
             echo '<h3>' . $film->TITRE . '</h3>';
             // Add a data attribute to store the film ID
-            echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+            echo '<img src="../includes/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
             echo '<p>' . $film->CATEGORY . '</p>';
             echo '</div>';
         }

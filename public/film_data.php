@@ -1,6 +1,6 @@
 <?php
-require_once '../db/config.php';
-require_once '../db/classes/FilmRepository.php';
+require_once '../includes/config.php';
+require_once '../includes/classes/FilmRepository.php';
 
 // Create a new Database connection
 $db = new Database();
@@ -33,7 +33,7 @@ $filmsHtml = '';
 foreach ($films as $film) {
     $filmsHtml .= '<div class="film">';
     $filmsHtml .= '<h3>' . $film->TITRE . '</h3>';
-    $filmsHtml .= '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+    $filmsHtml .= '<img src="../includes/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
     $filmsHtml .= '<p>' . $film->CATEGORY . '</p>';
     $filmsHtml .= '</div>';
 }

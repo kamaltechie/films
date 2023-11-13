@@ -1,5 +1,5 @@
 <?php
-include 'Film.php'; // Include the file where the class is defined
+include 'Film.php';
 
 class FilmRepository {
     private $connection;
@@ -147,6 +147,17 @@ class FilmRepository {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         return $result['total'];
+    }
+    public function getFilmsFromDatabase()
+    {
+        try {
+            $stmt = $this->db->query("SELECT * FROM film");
+            $films = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $films;
+        } catch (\PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
     }
 
 }

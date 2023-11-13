@@ -1,23 +1,25 @@
 <?php
-require '../../db/config.php';
-include_once '../../db/classes/CommandeRepository.php';
+require '../../includes/config.php';
+include_once '../../includes/classes/CommandeRepository.php';
+include_once '../../includes/classes/CollectionRepository.php';
 
-// Verifica se la richiesta è una richiesta AJAX
+// Check if the request is an AJAX request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $database = new Database();
     $connection = $database->getConnection();
     $commandeRepository = new classes\CommandeRepository($connection);
+    $collectionRepository = new classes\CollectionRepository($connection);
 
     $action = $_POST['action'];
 
-    // Chiamare la funzione appropriata in base all'azione
+    // Call the appropriate function based on the action
     switch ($action) {
         case 'acceptCommande':
             if (isset($_POST['numCom'])) {
                 $numCom = $_POST['numCom'];
                 $commandeRepository->acceptCommande($numCom);
             } else {
-                echo 'failure'; // Manca il parametro numCom
+                echo 'failure'; // Missing numCom parameter
             }
             break;
 
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $numCom = $_POST['numCom'];
                 $commandeRepository->refuseCommande($numCom);
             } else {
-                echo 'failure'; // Manca il parametro numCom
+                echo 'failure'; // Missing numCom parameter
             }
             break;
 
@@ -35,15 +37,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $numCom = $_POST['numCom'];
                 $commandeRepository->deleteCommande($numCom);
             } else {
-                echo 'failure'; // Manca il parametro numCom
+                echo 'failure';
+            }
+            break;
+
+        case 'addAction': // Add this case for handling collection actions
+            if (isset($_POST['collectionData'])) {
+                $collectionData = $_POST['collectionData'];
+                $result = $collectionRepository->addAction($collectionData);
+                echo $result ? 'success' : 'failure';
+            } else {
+                echo 'failure';
+            }
+            break;
+
+        case 'editAction':
+            if (isset($_POST['collectionData'])) {
+                $collectionData = $_POST['collectionData'];
+                $result = $collectionRepository->editAction($collectionData);
+                echo $result ? 'success' : 'failure';
+            } else {
+                echo 'failure';
+            }
+            break;
+
+        case 'deleteAction':
+            if (isset($_POST['collectionData'])) {
+                $collectionData = $_POST['collectionData'];
+                $result = $collectionRepository->deleteAction($collectionData);
+                echo $result ? 'success' : 'failure';
+            } else {
+                echo 'failure';
             }
             break;
 
         default:
-            echo 'failure'; // Azione non supportata
+            echo 'failure';
             break;
     }
 } else {
-    echo 'failure'; // Richiesta non valida
+    echo 'failure';
 }
 ?>

@@ -1,6 +1,6 @@
     <?php
 
-    require '../../db/config.php';
+    require '../../includes/config.php';
 
 
     session_start();

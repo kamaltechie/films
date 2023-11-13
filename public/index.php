@@ -1,11 +1,12 @@
 <?php
 
+use classes\CollectionRepository;
 use classes\Pagination;
 
-require_once '../db/config.php'; // Include your database configuration file
-require_once '../db/classes/FilmRepository.php'; // Include your FilmRepository class
-require_once '../db/classes/Pagination.php'; // Include your Pagination class
-require_once '../db/classes/collectionRepository.php'; // Include your CollectionRepository class
+require_once '../includes/config.php'; // Include your database configuration file
+require_once '../includes/classes/FilmRepository.php'; // Include your FilmRepository class
+require_once '../includes/classes/Pagination.php'; // Include your Pagination class
+require_once '../includes/classes/collectionRepository.php'; // Include your CollectionRepository class
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +116,7 @@ require_once '../db/classes/collectionRepository.php'; // Include your Collectio
     if ($film instanceof \classes\Film) {
         echo '<div class="film">';
         echo '<h3>' . $film->TITRE . '</h3>';
-        echo '<img src="../db/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+        echo '<img src="../includes/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
         echo '<p>' . $film->CATEGORY . '</p>';
         echo '</div>';
     }
