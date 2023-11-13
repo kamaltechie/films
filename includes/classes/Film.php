@@ -3,7 +3,6 @@ namespace classes;
 class Film
 {
     private $db;
-
     public $ID_FILM;
     public $TITRE;
     public $image;
