@@ -4,9 +4,7 @@ include_once '../../includes/classes/Film.php';
 include_once '../../includes/classes/FilmRepository.php';
 
 // Check if the FilmRepository class is correctly loaded
-if (!class_exists('classes\FilmRepository')) {
-    die('FilmRepository class not found!');
-}
+
 
 $database = new Database();
 $connection = $database->getConnection();

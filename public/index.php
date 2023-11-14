@@ -89,8 +89,10 @@ require_once '../includes/classes/collectionRepository.php'; // Include your Col
 <section id="films-section" class="films-section">
     <div class="film-list">
         <?php
-        $db = new Database();
-        $filmRepository = new FilmRepository($db->getConnection());
+        $database = new Database();
+        $connection = $database->getConnection();
+
+        $filmRepository = new classes\FilmRepository()
 
         // Define the number of films per row and the total number of rows
         $filmsPerRow = 4;
@@ -113,14 +115,12 @@ require_once '../includes/classes/collectionRepository.php'; // Include your Col
         }
 
         foreach ($films as $film) {
-    if ($film instanceof \classes\Film) {
-        echo '<div class="film">';
-        echo '<h3>' . $film->TITRE . '</h3>';
-        echo '<img src="../includes/film_images/' . $film->image . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
-        echo '<p>' . $film->CATEGORY . '</p>';
-        echo '</div>';
-    }
-
+            if ($film instanceof \classes\Film) {
+                echo '<div class="film">';
+                echo '<img src="/film_images/' . $film->TITRE . '" alt="Film Image" class="film-image" data-film-id="' . $film->ID_FILM . '">';
+                echo '<p>' . $film->CATEGORY . '</p>';
+                echo '</div>';
+            }
         }
         ?>
         <div class="pagination">

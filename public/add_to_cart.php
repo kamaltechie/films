@@ -1,7 +1,6 @@
 <?php
 
 session_start();
-session_start();
 $_SESSION['test'] = 'Hello, World!';
 echo 'Session set.';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
