@@ -1,18 +1,19 @@
 <?php
 namespace classes;
+
 class Film
 {
-    private $db;
     public $ID_FILM;
     public $TITRE;
+
     public $image;
     public $DESCRIPTION;
     public $PRIX;
     public $CATEGORY;
 
-    public function __construct($db, $ID_FILM = null, $TITRE = null, $image = null, $DESCRIPTION = null, $PRIX = null, $CATEGORY = null)
+
+    public function __construct($ID_FILM, $TITRE, $image, $DESCRIPTION, $PRIX, $CATEGORY)
     {
-        $this->db = $db;
         $this->ID_FILM = $ID_FILM;
         $this->TITRE = $TITRE;
         $this->image = $image;
@@ -21,17 +22,8 @@ class Film
         $this->CATEGORY = $CATEGORY;
     }
 
-    public function getTotalFilm()
+    public function printDetails()
     {
-        try {
-            $stmt = $this->db->query("SELECT COUNT(*) as total FROM film");
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-            return $result['total'];
-        } catch (\PDOException $e) {
-            // Handle database connection or query error
-            echo "Error: " . $e->getMessage();
-            return 0; // Return 0 or handle the error appropriately
-        }
+        echo "ID: {$this->ID_FILM}, Title: {$this->TITRE}, Description: {$this->DESCRIPTION}, Price: {$this->PRIX}, Category: {$this->CATEGORY}, Status: {$this->STATUT}";
     }
 }
