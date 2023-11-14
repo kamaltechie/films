@@ -1,5 +1,5 @@
 <?php
-require_once 'Film.php'; // Make sure to include your Film class definition
+include 'Film.php';
 
 class FilmRepository {
     private $connection;
@@ -31,12 +31,15 @@ class FilmRepository {
     }
 
     public function fetchFilmById($filmId) {
+        // Implement the logic to fetch a specific film by its ID
+        // You should execute an SQL query to fetch the film with the given ID
         $stmt = $this->connection->prepare("SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY FROM film WHERE ID_FILM = :filmId");
         $stmt->bindParam(':filmId', $filmId, PDO::PARAM_INT);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($row) {
+            // Instantiate the Film class with the correct namespace
             return new \classes\Film(
                 $row['ID_FILM'],
                 $row['TITRE'],
@@ -44,21 +47,23 @@ class FilmRepository {
                 $row['DESCRIPTION'],
                 $row['PRIX'],
                 $row['CATEGORY'],
+
             );
         } else {
             return null; // Film not found
         }
     }
-
     public function searchFilms($searchQuery) {
         $films = array();
-        $searchParam = '%' . $searchQuery . '%';
 
+        // Modify your SQL query to search for films based on your criteria
+        $searchParam = '%' . $searchQuery . '%';  // Create a variable for the bound value
         $stmt = $this->connection->prepare("SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY FROM film WHERE TITRE LIKE :searchQuery");
         $stmt->bindParam(':searchQuery', $searchParam, PDO::PARAM_STR);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // Instantiate the Film class with the correct namespace
             $film = new \classes\Film(
                 $row['ID_FILM'],
                 $row['TITRE'],
@@ -66,22 +71,23 @@ class FilmRepository {
                 $row['DESCRIPTION'],
                 $row['PRIX'],
                 $row['CATEGORY'],
+
             );
             $films[] = $film;
         }
 
         return $films;
     }
-
     public function searchFilmsByTitle($searchQuery) {
         $films = array();
-        $searchQuery = '%' . $searchQuery . '%';
 
         $stmt = $this->connection->prepare("SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY FROM film WHERE TITRE LIKE :search");
+        $searchQuery = '%' . $searchQuery . '%';
         $stmt->bindParam(':search', $searchQuery, PDO::PARAM_STR);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // Instantiate the Film class with the correct namespace
             $film = new \classes\Film(
                 $row['ID_FILM'],
                 $row['TITRE'],
@@ -89,15 +95,16 @@ class FilmRepository {
                 $row['DESCRIPTION'],
                 $row['PRIX'],
                 $row['CATEGORY'],
+
             );
             $films[] = $film;
         }
 
         return $films;
     }
-
     public function fetchFilmsWithPagination($filmsPerPage, $offset, $searchQuery = '') {
         $films = array();
+
         $query = "SELECT ID_FILM, TITRE, image, DESCRIPTION, PRIX, CATEGORY FROM film";
 
         if (!empty($searchQuery)) {
@@ -141,11 +148,10 @@ class FilmRepository {
 
         return $result['total'];
     }
-
     public function getFilmsFromDatabase()
     {
         try {
-            $stmt = $this->connection->query("SELECT * FROM film");
+            $stmt = $this->db->query("SELECT * FROM film");
             $films = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $films;
         } catch (\PDOException $e) {
@@ -153,5 +159,5 @@ class FilmRepository {
             return [];
         }
     }
+
 }
-?>
